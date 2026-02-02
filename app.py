@@ -16,7 +16,7 @@ with st.sidebar:
     st.header("Narendrakumar Nagarajan")
     st.write("📍 Vancouver, BC, Canada")
     st.write("📧 mail2naren887@gmail.com")
-    st.write("📱 +1 (604) 401-9816")
+    st.write("📱 +------------")
     st.markdown("[LinkedIn Profile](https://www.linkedin.com/in/naren887)")
     
     st.divider()
@@ -145,4 +145,5 @@ with tab4:
         st.success("### 🤖 TICK Agent (GenAI)")
         st.write("**Role:** Architect & Manager")
         st.write("**Impact:** Reduced security triage time by 30% via self-service natural language queries.")
+
         st.write("**Tech:** Azure AI Foundry, Semantic Kernel, Python.")
