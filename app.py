@@ -5,7 +5,7 @@ from datetime import datetime
 
 # --- PAGE CONFIGURATION ---
 st.set_page_config(
-    page_title="Narendrakumar Nagarajan | Data Platform Manager",
+    page_title="Narendrakumar Nagarajan",
     page_icon="📊",
     layout="wide"
 )
@@ -147,3 +147,4 @@ with tab4:
         st.write("**Impact:** Reduced security triage time by 30% via self-service natural language queries.")
 
         st.write("**Tech:** Azure AI Foundry, Semantic Kernel, Python.")
+
