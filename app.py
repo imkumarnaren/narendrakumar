@@ -95,7 +95,7 @@ with tabs[0]:
     
     # Timeline Data
     timeline_data = [
-         dict(Role="Technology Lead - CAN", Company="Infosys", Start='2019-05-02', End=datetime.today().strftime('%Y-%m-%d'), Type="Leadership"),
+        dict(Role="Technology Lead - CAN", Company="Infosys", Start='2019-05-02', End=datetime.today().strftime('%Y-%m-%d'), Type="Leadership"),
         dict(Role="Technology Lead", Company="Infosys", Start='2016-08-01', End='2019-05-01', Type="Technical Lead"),
         dict(Role="Senior Software Engineer", Company="Accenture", Start='2014-02-14', End='2016-07-30', Type="Individual Contributor"),
         dict(Role="Software Engineer Grade - 3", Company="Carevoyant", Start='2011-12-05', End='2014-01-31', Type="Individual Contributor"),
@@ -222,5 +222,6 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
 
 
