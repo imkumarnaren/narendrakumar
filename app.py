@@ -32,7 +32,7 @@ st.markdown("""
         font-weight: 500;
     }
     .highlight {
-        color: #0078D4; /* Azure Blue */
+        /* Azure Blue */
         font-weight: bold;
     }
 </style>
@@ -260,6 +260,7 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
 
 
 
