@@ -18,7 +18,7 @@ st.markdown("""
         background-color: #f8f9fa;
     }
     .stMetric {
-        background-color: #ffffff;
+        background-color: #848484;
         padding: 15px;
         border-radius: 10px;
         box-shadow: 2px 2px 10px rgba(0,0,0,0.05);
@@ -222,4 +222,5 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
 
