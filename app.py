@@ -64,9 +64,10 @@ with col1:
     st.title("Professional Summary")
     st.markdown("""
     <p class="big-font">
-    Hands-on <b>Data Engineering Manager</b> with 15+ years of experience. 
-    Specializing in <b>Microsoft Fabric</b>, <b>Databricks</b>, and <b>GenAI</b>. 
-    Proven track record of leading squads to deliver <b>$390k+</b> in FinOps savings and scaling platforms to <b>50B+ events/month</b>.
+    Hands on - Data Engineering Manager with 15+ years of experience in architecting and operating petabyte-scale Lakehouse platforms in Azure. 
+    Proven people manager leading cross-functional squads (10 - 12 engineers: Data, DevOps, Analytics) to deliver business-critical insights and AI-ready datasets. 
+    Deep expertise in Microsoft Fabric, Databricks, and Azure Data Services; successfully executed 100+ pipeline migrations to Fabric with zero data loss, achieving a 40% performance gain. 
+    Delivered $390K+/year in cloud savings through FinOps, drove 100% SFI/GDPR compliance, and championed SLO-driven reliability and "Golden Path" standards to accelerate delivery across high-volume telemetry platforms (50B+ events/month).
     </p>
     """, unsafe_allow_html=True)
 
@@ -219,6 +220,7 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
 
 
 
