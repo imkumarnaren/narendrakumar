@@ -103,7 +103,7 @@ with tabs[0]:
     ]
     df_timeline = pd.DataFrame(timeline_data)
     fig = px.timeline(df_timeline, x_start="Start", x_end="End", y="Company", color="Category", 
-                      color_discrete_map={"Leadership": "#0078D4", "Tech Lead": "#5C2D91", "Engineering": "#00CC6A"})
+                      color_discrete_map={"Leadership": "#0078D4", "Tech Lead": "#8B5CF6", "Engineering": "#10B981"})
     fig.update_yaxes(autorange="reversed")
     st.plotly_chart(fig, use_container_width=True)
 
@@ -222,12 +222,3 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
-
-
-
-
-
-
-
-
-
