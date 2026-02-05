@@ -24,6 +24,7 @@ st.markdown("""
         border-radius: 10px;
         box-shadow: 2px 2px 10px rgba(0,0,0,0.05);
         text-align: center;
+        text-color: #0078D4;
         border: 1px solid #e0e0e0;
     }
     .big-font {
@@ -259,6 +260,7 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
 
 
 
