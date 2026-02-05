@@ -107,15 +107,21 @@ with tabs[0]:
 
     st.markdown("### Detailed Roles")
     
-    with st.expander("🔹 **Data Engineering Manager (Cyber Defense) | Microsoft (via Infosys)** | *Sep 2024 - Present*", expanded=True):
+    with st.expander("🔹 **Technical Program Manager (Cyber Defense Engineering) | Microsoft (via Infosys)** | *Sep 2025 - Present*", expanded=True):
         st.markdown("""
         * **Strategic Execution:** Managing a cross-functional squad of **10+ engineers**. Improved delivery velocity by implementing DataOps (automated testing, CI/CD).
-        * **GenAI Innovation:** Architected **TICK Agent**, a GenAI-powered retrieval system on **Azure AI Foundry** that queries massive security logs to automate triage (30% time reduction).
+        * **Governance (SFI):** Led the **Secure Future Initiative**, achieving **100% compliance** across Identity and Network pillars.
+        * **Reliability:** Established "Golden Path" pipeline standards for the Security Data Lake.
+        """)
+    
+    with st.expander("🔹 **Reporting Team Lead (CE&S BI) | Microsoft (via Infosys)** | *Sep 2025 - Present*", expanded=True):
+        st.markdown("""
+        * **Strategic Execution:** Managing a cross-functional squad of **10+ engineers**. Improved delivery velocity by implementing DataOps (automated testing, CI/CD).
         * **Governance (SFI):** Led the **Secure Future Initiative**, achieving **100% compliance** across Identity and Network pillars.
         * **Reliability:** Established "Golden Path" pipeline standards for the Security Data Lake.
         """)
         
-    with st.expander("🔹 **Data Engineering Manager (CXA Platform) | Microsoft (via Infosys)** | *May 2019 - Aug 2024*"):
+    with st.expander("🔹 **Technical Program Manager (GIGA XBOX) | Microsoft (via Infosys)** | * OCT 2024 - Aug 2025*"):
         st.markdown("""
         * **Massive Scale:** Owned telemetry platform processing **50 Billion+ events/month**.
         * **Modernization:** Orchestrated migration of **100+ pipelines** to **Microsoft Fabric** and OneLake (40% perf gain).
@@ -125,6 +131,13 @@ with tabs[0]:
         """)
 
     with st.expander("🔹 **Technology Lead | Microsoft (via Infosys)** | *Aug 2016 - Apr 2019*"):
+        st.markdown("""
+        * **Cloud Migration:** Architected "R3" BI migration (SQL On-prem to Azure PaaS), saving **$150K/year**.
+        * **Data Modeling:** Designed Star Schema for 150+ entities and delivered 40+ Power BI dashboards (500+ DAU).
+        * **Quality:** Improved Data Freshness SLA from 85% to 99.9%.
+        """)
+
+     with st.expander("🔹 **Technology Lead | Microsoft (via Infosys)** | *Aug 2016 - Apr 2019*"):
         st.markdown("""
         * **Cloud Migration:** Architected "R3" BI migration (SQL On-prem to Azure PaaS), saving **$150K/year**.
         * **Data Modeling:** Designed Star Schema for 150+ entities and delivered 40+ Power BI dashboards (500+ DAU).
@@ -216,6 +229,7 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
 
 
 
