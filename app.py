@@ -165,13 +165,8 @@ with tabs[1]:
     graph.attr('edge', fontname='Helvetica', penwidth='1.5', color='#555555', arrowhead='none')
 
     # Create Center Node
-    center_label = """<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0">
-      <TR><TD><FONT POINT-SIZE="16"><B>NARENDRAKUMAR</B></FONT></TD></TR>
-      <TR><TD>Data Eng Manager &amp; Architect</TD></TR>
-      <TR><TD><I>Core Competencies Hub</I></TD></TR>
-    </TABLE>>"""
     
-    graph.node('CENTER', label=center_label, shape='circle', 
+    graph.node('CENTER', label="SkillSet", shape='circle',   
                fillcolor='#2c3e50', fontcolor='white', width='2.5', height='2.5', fixedsize='true')
 
     # Create Left Nodes
@@ -265,6 +260,7 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
 
 
 
