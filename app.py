@@ -98,11 +98,11 @@ with tabs[0]:
         dict(Role="Technology Lead - CAN", Company="Infosys", Start='2019-05-02', End=datetime.today().strftime('%Y-%m-%d'), Category="Leadership"),
         dict(Role="Technology Lead", Company="Infosys", Start='2016-08-01', End='2019-05-01', Category="Tech Lead"),
         dict(Role="Senior Software Engineer", Company="Accenture", Start='2014-02-14', End='2016-07-26', Category="Engineering"),
-        dict(Role="Software Engineer - Grade 3", Company="Carevoyant", Start='2011-12-05', End='2014-01-32', Category="Engineering"),
+        dict(Role="Software Engineer - Grade 3", Company="Carevoyant", Start='2011-12-05', End='2014-01-31', Category="Engineering"),
         dict(Role="Software Engineer", Company="Medall", Start='2010-09-13', End='2011-11-30', Category="Engineering"),
     ]
     df_timeline = pd.DataFrame(timeline_data)
-    fig = px.timeline(df_timeline, x_start="Start", x_end="End", y="Company", color="Category", 
+    fig = px.timeline(df_timeline, x_start="Start", x_end="End", y="Role", color="Category", 
                       color_discrete_map={"Leadership": "#0078D4", "Tech Lead": "#5C2D91", "Engineering": "#00CC6A"})
     fig.update_yaxes(autorange="reversed")
     st.plotly_chart(fig, use_container_width=True)
@@ -222,6 +222,7 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
 
 
 
