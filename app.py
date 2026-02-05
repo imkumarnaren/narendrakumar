@@ -190,7 +190,7 @@ with tabs[1]:
         graph.edge(node_id, 'CENTER', color='#0078D4')
 
     # Create Right Nodes
-    for key, (title, details) in leadership_skills.items():
+    for key, (title) in leadership_skills.items():
         node_id = f"R_{key}"
         label = f"""<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#D83B01">
           <TR>
@@ -265,5 +265,6 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
 
 
