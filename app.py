@@ -35,9 +35,9 @@ with st.sidebar:
         st.download_button("📄 Download Resume PDF", data=file, file_name="Narendrakumar_Data_Engg_Manager.pdf")
 
 # --- HERO SECTION ---
-col1, col2 = st.columns([2, 1])
 
-with col1:
+
+ 
     st.title("Professional Summary")
     st.markdown("""
     <p class="big-font">
@@ -46,6 +46,9 @@ with col1:
     Proven track record of leading squads to deliver <b>$390k+</b> in FinOps savings and scaling platforms to <b>50B+ events/month</b>.
     </p>
     """, unsafe_allow_html=True)
+
+col1, col2 = st.columns([2, 1])
+
 
 with col2:
     # KPI CARDS
@@ -196,6 +199,7 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
 
 
 
