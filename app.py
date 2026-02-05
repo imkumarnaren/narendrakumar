@@ -37,7 +37,16 @@ with st.sidebar:
 # --- HERO SECTION ---
 
 
- 
+    st.title("Data Engineering Manager & Principal Architect")
+    st.markdown("**Specializing in Azure, Fabric, and Governance at Petabyte Scale**")
+
+    col1, col2, col3, col4 = st.columns(4)
+    col1.metric("Cloud Savings (FinOps)", "$390k / Year", "40% cost reduction")
+    col2.metric("Data Scale", "50 Billion", "Events per Month")
+    col3.metric("Security Compliance", "100%", "SFI & GDPR")
+    col4.metric("Team Size", "12 Engineers", "Data, DevOps, Analytics")
+
+    st.divider() 
     st.title("Professional Summary")
     st.markdown("""
     <p class="big-font">
@@ -199,6 +208,7 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
 
 
 
