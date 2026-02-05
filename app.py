@@ -19,16 +19,17 @@ st.markdown("""
         background-color: #f8f9fa;
     }
     .stMetric {
-        background-color: #848484;
+        background-color: #ffffff; /* Changed to white for better contrast */
         padding: 15px;
         border-radius: 10px;
         box-shadow: 2px 2px 10px rgba(0,0,0,0.05);
         text-align: center;
+        border: 1px solid #e0e0e0;
     }
     .big-font {
         font-size: 20px !important;
         font-weight: 500;
-        
+        color: #4a4a4a;
     }
     .highlight {
         color: #0078D4; /* Azure Blue */
@@ -49,14 +50,14 @@ with st.sidebar:
     st.markdown("### 📍 Contact")
     st.write("🏙️ Vancouver, BC, Canada")
     st.write("📧 mail2naren887@gmail.com")
-    st.write("📱 +1 (***) ***-****")
+    st.write("📱 +1 (604) 401-9816") 
     st.markdown("[🔗 LinkedIn Profile](https://www.linkedin.com/in/naren887)")
     
     st.markdown("---")
     st.markdown("### 📥 Actions")
-    # In a real app, you would load the actual PDF file here
-    with open("app.py", "rb") as file:
-        st.download_button("📄 Download Resume PDF", data=file, file_name="Narendrakumar_Data_Engg_Manager1.pdf")
+    # In a real app, ensure the PDF exists in the directory
+    with open(__file__, "rb") as file:
+        st.download_button("📄 Download Resume PDF", data=file, file_name="Narendrakumar_Resume.pdf")
 
 # --- HERO SECTION ---
 col1, col2 = st.columns([2, 1])
@@ -94,41 +95,36 @@ with tabs[0]:
     
     # Timeline Data
     timeline_data = [
-        dict(Role="Technology Lead - CAN", Company="Infosys", Client="Microsoft", Start='2019-05-02', End=datetime.today().strftime('%Y-%m-%d'), Category="Leadership"),
-        dict(Role="Technology Lead", Company="Infosys",Client="Microsoft", Start='2016-08-01', End='2019-05-01', Category="Tech Lead"),
+        dict(Role="Tech Lead (Cyber)", Company="Infosys", Client="Microsoft", Start='2024-09-01', End=datetime.today().strftime('%Y-%m-%d'), Category="Leadership"),
+        dict(Role="Tech Lead (CX)", Company="Infosys", Client="Microsoft", Start='2019-05-02', End='2024-08-30', Category="Leadership"),
+        dict(Role="Technology Lead", Company="Infosys", Client="Microsoft", Start='2016-08-01', End='2019-05-01', Category="Tech Lead"),
         dict(Role="Senior Software Engineer", Company="Accenture", Start='2014-02-14', End='2016-07-26', Category="Engineering"),
-        dict(Role="Software Engineer - Grade 3", Company="Carevoyant", Start='2011-12-05', End='2014-01-31', Category="Engineering"),
-        dict(Role="Software Engineer", Company="Medall", Start='2010-09-13', End='2011-11-30', Category="Engineering"),
+        dict(Role="Software Engineer", Company="Carevoyant", Start='2011-12-05', End='2014-01-31', Category="Engineering"),
     ]
     df_timeline = pd.DataFrame(timeline_data)
-    fig = px.timeline(df_timeline, x_start="Start", x_end="End", y="Company", color="Category",text ="Role",
+    
+    # Plotly Timeline
+    fig = px.timeline(df_timeline, x_start="Start", x_end="End", y="Company", color="Category", text="Role",
                       color_discrete_map={"Leadership": "#0078D4", "Tech Lead": "#8B5CF6", "Engineering": "#10B981"})
     fig.update_yaxes(autorange="reversed")
     st.plotly_chart(fig, use_container_width=True)
 
     st.markdown("### Detailed Roles")
     
-    with st.expander("🔹 **Technical Program Manager (Cyber Defense Engineering) | Microsoft (via Infosys)** | *Sep 2025 - Present*", expanded=True):
+    with st.expander("🔹 **Technical Program Manager (Cyber Defense Engineering) | Microsoft (via Infosys)** | *Sep 2024 - Present*", expanded=True):
         st.markdown("""
         * **Strategic Execution:** Managing a cross-functional squad of **10+ engineers**. Improved delivery velocity by implementing DataOps (automated testing, CI/CD).
         * **Governance (SFI):** Led the **Secure Future Initiative**, achieving **100% compliance** across Identity and Network pillars.
         * **Reliability:** Established "Golden Path" pipeline standards for the Security Data Lake.
+        * **AI Innovation:** Architected **TICK Agent** using Azure AI Foundry.
         """)
     
-    with st.expander("🔹 **Reporting Team Lead (CE&S BI) | Microsoft (via Infosys)** | *Sep 2025 - Present*", expanded=True):
-        st.markdown("""
-        * **Strategic Execution:** Managing a cross-functional squad of **10+ engineers**. Improved delivery velocity by implementing DataOps (automated testing, CI/CD).
-        * **Governance (SFI):** Led the **Secure Future Initiative**, achieving **100% compliance** across Identity and Network pillars.
-        * **Reliability:** Established "Golden Path" pipeline standards for the Security Data Lake.
-        """)
-        
-    with st.expander("🔹 **Technical Program Manager (GIGA XBOX) | Microsoft (via Infosys)** | * OCT 2024 - Aug 2025*"):
+    with st.expander("🔹 **Technical Program Manager (GIGA XBOX) | Microsoft (via Infosys)** | *Oct 2024 - Aug 2025*"):
         st.markdown("""
         * **Massive Scale:** Owned telemetry platform processing **50 Billion+ events/month**.
         * **Modernization:** Orchestrated migration of **100+ pipelines** to **Microsoft Fabric** and OneLake (40% perf gain).
         * **FinOps:** Reduced Azure spend by **$240K-$390K/year** via cluster policies and spot instances.
         * **Team Building:** Mentored 12 engineers, transitioning Senior DEs into Tech Leads.
-        * **Automation:** Deprecated manual deployments for fully automated Azure DevOps pipelines.
         """)
 
     with st.expander("🔹 **Technology Lead | Microsoft (via Infosys)** | *Aug 2016 - Apr 2019*"):
@@ -138,111 +134,91 @@ with tabs[0]:
         * **Quality:** Improved Data Freshness SLA from 85% to 99.9%.
         """)
 
-     with st.expander("🔹 **Technology Lead | Microsoft (via Infosys)** | *Aug 2016 - Apr 2019*"):
-        st.markdown("""
-        * **Cloud Migration:** Architected "R3" BI migration (SQL On-prem to Azure PaaS), saving **$150K/year**.
-        * **Data Modeling:** Designed Star Schema for 150+ entities and delivered 40+ Power BI dashboards (500+ DAU).
-        * **Quality:** Improved Data Freshness SLA from 85% to 99.9%.
-        """)
-
-# --- TAB 2: SKILLS (TREEMAP) ---
+# --- TAB 2: SKILLS (GRAPHVIZ) ---
 with tabs[1]:
-     technical_skills = {
-    "01": ("Modern Data Stack", "Microsoft Fabric, Databricks (Spark), Synapse, ADLS Gen2, Snowflake, Power BI"),
-    "02": ("Data Engineering Langs", "Python, PySpark, SQL (T-SQL, KQL), C#, Go (Learning)"),
-    "03": ("Architecture Patterns", "Lakehouse (Delta), Medallion (Bronze/Silver/Gold), Event-Driven, Streaming"),
-    "04": ("AI & GenAI Ops", "Azure AI Foundry, Semantic Kernel, RAG Patterns, Vector DBs, Copilot Studio"),
-    "05": ("DevOps & Cloud Infra", "Azure DevOps (CI/CD), Terraform (IaC), Docker, Kubernetes, Git")
-}
+    st.subheader("🕸️ Visual Skills Ecosystem")
 
-# Right Side: Leadership & Strategy Skills
-leadership_skills = {
-    "06": ("Engineering Leadership", "Managing 10-12 Engineers, Hiring, Performance Mgmt, DataOps Culture"),
-    "07": ("Strategy & Roadmap", "Platform Modernization (Fabric Migration), Capacity Planning, OKR Alignment"),
-    "08": ("Governance & Security", "Microsoft Purview, Unity Catalog, SFI Compliance, PII Protection, Zero Trust"),
-    "09": ("FinOps & Efficiency", "Cloud Cost Optimization ($390k savings), Compute/Storage Lifecycle Mgmt"),
-    "10": ("Operational Excellence", "Defining SLAs/SLOs, Data Quality Frameworks, Incident Response standards")
-}
+    # Left Side: Technical Hard Skills
+    technical_skills = {
+        "01": ("Modern Data Stack", "Microsoft Fabric, Databricks (Spark), Synapse, ADLS Gen2, Snowflake, Power BI"),
+        "02": ("Data Engineering Langs", "Python, PySpark, SQL (T-SQL, KQL), C#, Go (Learning)"),
+        "03": ("Architecture Patterns", "Lakehouse (Delta), Medallion (Bronze/Silver/Gold), Event-Driven, Streaming"),
+        "04": ("AI & GenAI Ops", "Azure AI Foundry, Semantic Kernel, RAG Patterns, Vector DBs, Copilot Studio"),
+        "05": ("DevOps & Cloud Infra", "Azure DevOps (CI/CD), Terraform (IaC), Docker, Kubernetes, Git")
+    }
 
-# --- 2. Initialize Graphviz ---
-# 'neato' or 'twopi' engines are often good for radial layouts, 
-# but 'dot' with rankdir=LR gives a clean left-to-right flow like the example image.
-graph = graphviz.Digraph(engine='dot')
+    # Right Side: Leadership & Strategy Skills
+    leadership_skills = {
+        "06": ("Engineering Leadership", "Managing 10-12 Engineers, Hiring, Performance Mgmt, DataOps Culture"),
+        "07": ("Strategy & Roadmap", "Platform Modernization (Fabric Migration), Capacity Planning, OKR Alignment"),
+        "08": ("Governance & Security", "Microsoft Purview, Unity Catalog, SFI Compliance, PII Protection, Zero Trust"),
+        "09": ("FinOps & Efficiency", "Cloud Cost Optimization ($390k savings), Compute/Storage Lifecycle Mgmt"),
+        "10": ("Operational Excellence", "Defining SLAs/SLOs, Data Quality Frameworks, Incident Response standards")
+    }
 
-# --- 3. Global Styling Attributes ---
-graph.attr(rankdir='LR',  # Left to Right layout
-           splines='polyline', # Straight lines with bends looks cleaner here
-           nodesep='0.4',      # Spacing between nodes
-           ranksep='2.0',      # Spacing between ranks (left, center, right columns)
-           bgcolor='#FFFFFF')  # Background color
+    # Initialize Graphviz
+    graph = graphviz.Digraph(engine='dot')
 
-# Default node style
-graph.attr('node', shape='box', style='filled, rounded', fontname='Helvetica', penwidth='2', margin='0.2')
-# Default edge style
-graph.attr('edge', fontname='Helvetica', penwidth='1.5', color='#555555', arrowhead='none')
+    # Global Styling
+    graph.attr(rankdir='LR', splines='polyline', nodesep='0.4', ranksep='2.0', bgcolor='#FFFFFF')
+    graph.attr('node', shape='box', style='filled, rounded', fontname='Helvetica', penwidth='2', margin='0.2')
+    graph.attr('edge', fontname='Helvetica', penwidth='1.5', color='#555555', arrowhead='none')
 
-
-# --- 4. Create the Center Node ---
-# Using HTML-like label for rich formatting within the node
-center_label = <<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0">
-  <TR><TD><FONT POINT-SIZE="16"><B>NARENDRAKUMAR</B></FONT></TD></TR>
-  <TR><TD>Data Eng Manager &amp; Architect</TD></TR>
-  <TR><TD><I>Core Competencies Hub</I></TD></TR>
-</TABLE>>
-
-graph.node('CENTER', label=center_label, shape='circle', 
-           fillcolor='#2c3e50', fontcolor='white', width='2.5', height='2.5', fixedsize='true')
-
-
-# --- 5. Create Left Side Nodes (Technical) & Connections ---
-# Using a blue/cyan color scheme for technical skills
-for key, (title, details) in technical_skills.items():
-    node_id = f"L_{key}"
-    # HTML Label for structured content (Number | Title | Details)
-    label = <<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#0078D4">
-      <TR>
-        <TD WIDTH="30" BGCOLOR="#005a9e"><FONT COLOR="white"><B>{key}</B></FONT></TD>
-        <TD ALIGN="LEFT" BGCOLOR="#E6F2FF">
-          <FONT POINT-SIZE="12"><B>{title}</B></FONT><BR/>
-          <FONT POINT-SIZE="10">{details}</FONT>
-        </TD>
-      </TR>
-    </TABLE>>
+    # Create Center Node
+    center_label = """<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0">
+      <TR><TD><FONT POINT-SIZE="16"><B>NARENDRAKUMAR</B></FONT></TD></TR>
+      <TR><TD>Data Eng Manager &amp; Architect</TD></TR>
+      <TR><TD><I>Core Competencies Hub</I></TD></TR>
+    </TABLE>>"""
     
-    graph.node(node_id, label=label, color='#0078D4', fillcolor='white')
-    graph.edge(node_id, 'CENTER', color='#0078D4') # Connect to center
+    graph.node('CENTER', label=center_label, shape='circle', 
+               fillcolor='#2c3e50', fontcolor='white', width='2.5', height='2.5', fixedsize='true')
 
+    # Create Left Nodes
+    for key, (title, details) in technical_skills.items():
+        node_id = f"L_{key}"
+        label = f"""<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#0078D4">
+          <TR>
+            <TD WIDTH="30" BGCOLOR="#005a9e"><FONT COLOR="white"><B>{key}</B></FONT></TD>
+            <TD ALIGN="LEFT" BGCOLOR="#E6F2FF">
+              <FONT POINT-SIZE="12"><B>{title}</B></FONT><BR/>
+              <FONT POINT-SIZE="10">{details}</FONT>
+            </TD>
+          </TR>
+        </TABLE>>"""
+        
+        graph.node(node_id, label=label, color='#0078D4', fillcolor='white')
+        graph.edge(node_id, 'CENTER', color='#0078D4')
 
-# --- 6. Create Right Side Nodes (Leadership) & Connections ---
-# Using an orange/purple scheme for leadership skills
-for key, (title, details) in leadership_skills.items():
-    node_id = f"R_{key}"
-    # HTML Label similar to above
-    label = <<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#D83B01">
-      <TR>
-        <TD ALIGN="RIGHT" BGCOLOR="#FDF3F0">
-          <FONT POINT-SIZE="12"><B>{title}</B></FONT><BR/>
-          <FONT POINT-SIZE="10">{details}</FONT>
-        </TD>
-        <TD WIDTH="30" BGCOLOR="#A42E01"><FONT COLOR="white"><B>{key}</B></FONT></TD>
-      </TR>
-    </TABLE>>
-    
-    graph.node(node_id, label=label, color='#D83B01', fillcolor='white')
-    # Note: connecting FROM center TO right node helps guide the layout engine
-    graph.edge('CENTER', node_id, color='#D83B01') 
+    # Create Right Nodes
+    for key, (title, details) in leadership_skills.items():
+        node_id = f"R_{key}"
+        label = f"""<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#D83B01">
+          <TR>
+            <TD ALIGN="RIGHT" BGCOLOR="#FDF3F0">
+              <FONT POINT-SIZE="12"><B>{title}</B></FONT><BR/>
+              <FONT POINT-SIZE="10">{details}</FONT>
+            </TD>
+            <TD WIDTH="30" BGCOLOR="#A42E01"><FONT COLOR="white"><B>{key}</B></FONT></TD>
+          </TR>
+        </TABLE>>"""
+        
+        graph.node(node_id, label=label, color='#D83B01', fillcolor='white')
+        graph.edge('CENTER', node_id, color='#D83B01')
 
-# --- 7. Render the Graph in Streamlit ---
-st.graphviz_chart(graph, use_container_width=True)
+    # Render Graph
+    st.graphviz_chart(graph, use_container_width=True)
 
 # --- TAB 3: AI & LEADERSHIP ---
 with tabs[2]:
     c1, c2 = st.columns(2)
     
     with c1:
-        st.markdown("### 🤖 Showcase: 'Agent'")
+        st.markdown("### 🤖 Showcase: 'TICK Agent'")
         st.info("""
         **Problem:** Manual triage of massive security logs was too slow.
+        **Solution:** Architected a GenAI retrieval system using Azure AI Foundry.
+        **Result:** Reduced manual investigation time by ~30%.
         """)
         
     with c2:
@@ -291,16 +267,3 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
-
-
-
-
-
-
-
-
-
-
-
-
-
