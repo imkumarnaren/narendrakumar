@@ -11,7 +11,33 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-
+# --- CUSTOM CSS FOR "10/10" LOOK ---
+st.markdown("""
+<style>
+    .main {
+        background-color: #f8f9fa;
+    }
+    .stMetric {
+        background-color: #ffffff;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 2px 2px 10px rgba(0,0,0,0.05);
+        text-align: center;
+    }
+    h1, h2, h3 {
+        color: #2c3e50;
+    }
+    .big-font {
+        font-size: 20px !important;
+        font-weight: 500;
+        color: #5f6368;
+    }
+    .highlight {
+        color: #0078D4; /* Azure Blue */
+        font-weight: bold;
+    }
+</style>
+""", unsafe_allow_html=True)
 
 # --- SIDEBAR: PROFILE & CONTACT ---
 with st.sidebar:
@@ -34,17 +60,31 @@ with st.sidebar:
     with open("app.py", "rb") as file:
         st.download_button("📄 Download Resume PDF", data=file, file_name="Narendrakumar_Data_Engg_Manager.pdf")
 
-    # --- HERO SECTION: METRICS ---
-    st.title("Data Engineering Manager & Principal Architect")
-    st.markdown("**Specializing in Azure, Fabric, and Governance at Petabyte Scale**")
+# --- HERO SECTION ---
+col1, col2 = st.columns([2, 1])
+
+with col1:
+    st.title("Professional Summary")
+    st.markdown("""
+    <p class="big-font">
+    Hands-on <b>Data Engineering Manager</b> with 15+ years of experience. 
+    Specializing in <b>Microsoft Fabric</b>, <b>Databricks</b>, and <b>GenAI</b>. 
+    Proven track record of leading squads to deliver <b>$390k+</b> in FinOps savings and scaling platforms to <b>50B+ events/month</b>.
+    </p>
+    """, unsafe_allow_html=True)
+
+with col2:
+    # KPI CARDS
+    st.markdown("### 🚀 Impact at a Glance")
+    m1, m2 = st.columns(2)
+    m1.metric("Scale Managed", "50 Billion+", "Events / Month")
+    m2.metric("Cloud Savings", "$390k+", "Per Year (FinOps)")
     
-    col1, col2, col3, col4 = st.columns(4)
-    col1.metric("Cloud Savings (FinOps)", "$390k / Year", "40% cost reduction")
-    col2.metric("Data Scale", "50 Billion", "Events per Month")
-    col3.metric("Security Compliance", "100%", "SFI & GDPR")
-    col4.metric("Team Size", "12 Engineers", "Data, DevOps, Analytics")
-    
-    st.divider()
+    m3, m4 = st.columns(2)
+    m3.metric("Compliance", "100%", "SFI & GDPR")
+    m4.metric("Team Size", "12+", "Engineers Led")
+
+st.divider()
 
 # --- TABS FOR DETAILED VIEW ---
 tabs = st.tabs(["💼 Professional Experience", "🛠️ Technical Skills", "🤖 AI & Leadership", "🎓 Education"])
@@ -182,9 +222,3 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
-
-
-
-
-
-
