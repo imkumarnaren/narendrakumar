@@ -99,7 +99,7 @@ with tabs[0]:
         dict(Role="Software Engineer", Company="Medall", Start='2010-09-13', End='2011-11-30', Category="Engineering"),
     ]
     df_timeline = pd.DataFrame(timeline_data)
-    fig = px.timeline(df_timeline, x_start="Start", x_end="End", y="Company", color="Category",text ="Client"
+    fig = px.timeline(df_timeline, x_start="Start", x_end="End", y="Company", color="Category",text ="Client",
                       color_discrete_map={"Leadership": "#0078D4", "Tech Lead": "#8B5CF6", "Engineering": "#10B981"})
     fig.update_yaxes(autorange="reversed")
     st.plotly_chart(fig, use_container_width=True)
@@ -219,6 +219,7 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
 
 
 
