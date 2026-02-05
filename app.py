@@ -17,12 +17,12 @@ st.markdown("""
 <style>
     /* Main Background */
     .main {
-        background-color: #f8f9fa;
+        background-color: #0e1117; /* Matches Streamlit Dark Mode default */
     }
     
     /* METRIC CARD STYLING - FIXED VISIBILITY */
     div[data-testid="stMetric"] {
-        background-color: #ffffff !important;
+        background-color: #ffffff !important; /* Force White Card */
         border: 1px solid #e0e0e0;
         padding: 15px;
         border-radius: 10px;
@@ -46,13 +46,14 @@ st.markdown("""
 
     /* Delta/Change Indicator */
     div[data-testid="stMetricDelta"] > div {
+        color: #10B981 !important; /* Green for positive growth */
         font-weight: 600;
     }
 
     /* Typography */
     .big-font {
         font-size: 18px !important;
-        color: #4a4a4a;
+        color: #e0e0e0; /* Light text for Dark Mode background */
         line-height: 1.6;
     }
 </style>
@@ -76,8 +77,7 @@ with st.sidebar:
     
     st.markdown("---")
     st.markdown("### 📥 Actions")
-    # Note: Ensure a file named 'resume.pdf' exists in your folder or this button will error
-    # using __file__ as a placeholder so the app runs without error
+    # Placeholder for PDF download
     with open(__file__, "rb") as file:
         st.download_button("📄 Download Resume PDF", data=file, file_name="Narendrakumar_Resume.pdf")
 
