@@ -25,12 +25,12 @@ st.markdown("""
         text-align: center;
     }
     h1, h2, h3 {
-        color: ##2ca12e;
+        color: ##2c3e50;
     }
     .big-font {
         font-size: 20px !important;
         font-weight: 500;
-        color: #5f6368;
+        color: #2c3e50;
     }
     .highlight {
         color: #0078D4; /* Azure Blue */
