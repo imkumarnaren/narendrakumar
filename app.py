@@ -3,6 +3,7 @@ import pandas as pd
 import graphviz
 import plotly.express as px
 from datetime import datetime
+from groq import Groq
 
 # --- PAGE CONFIGURATION ---
 st.set_page_config(
@@ -266,34 +267,68 @@ with tabs[2]:
     # INTERACTIVE AI SIMULATION
     # --- SMARTER SEARCH LOGIC ---
     st.markdown("---")
-    st.subheader("💬 Chat with My Professional Persona")
-    st.caption("Ask me about: *Fabric, Scale, Team Size, Savings, or AI*")
+st.subheader("💬 Chat with My AI Agent")
 
-    # Knowledge Base (Dictionary of keywords : Answer)
-    knowledge_base = {
-        "fabric": "I have executed **100+ pipeline migrations** to Microsoft Fabric, achieving a **40% performance gain** and zero data loss.",
-        "spark": "I am an expert in Spark internals (Databricks). I optimized shuffle partitions and caching to save **$390k/year**.",
-        "cost": "FinOps is my specialty. I reduced Azure spend by **40%** ($390k/yr) using Spot Instances and storage lifecycle policies.",
-        "team": "I currently manage a cross-functional squad of **12 engineers** (Data, DevOps, Analytics) and mentor Senior Engineers to Tech Leads.",
-        "scale": "I own a platform processing **50 Billion+ events/month**. I know how to handle high-throughput ingestion using Event Hubs and Kafka.",
-        "ai": "I architected 'TICK Agent' using **Azure AI Foundry** and **Semantic Kernel** (RAG) to automate security triage by 30%.",
-        "contact": "You can reach me at **mail2naren887@gmail.com** or on LinkedIn."
-    }
-
-    query = st.text_input("Type your question here...", placeholder="Ex: What is your experience with Cost Optimization?")
+# 1. READ THE KEY SECURELY
+# This line looks for the key in Streamlit Cloud's internal safe.
+# It does NOT look in this file.
+if "GROQ_API_KEY" in st.secrets:
+    api_key = st.secrets["GROQ_API_KEY"]
+    client = Groq(api_key=api_key)
     
-    if query:
-        query_lower = query.lower()
-        found = False
-        # Simple Keyword Search
-        for key, response in knowledge_base.items():
-            if key in query_lower:
-                st.success(f"**Answer:** {response}")
-                found = True
-                break  # Stop after first match
+    # 2. CHAT LOGIC
+    user_query = st.text_input("Ask me anything about Narendra's experience:", placeholder="Ex: What is his experience with DataPlatform?")
+    
+    if user_query:
+        # Define context again here or ensure it's accessible
+        resume_context = """Name: Narendrakumar Nagarajan
+    Title: Data Engineering Manager & Principal Data Architect
+    Location: Vancouver, BC, Canada
+    Experience: 15+ Years in Data Engineering & Architecture.
+
+    Professional Summary:
+    Hands-on Data Engineering Manager architecting petabyte-scale Lakehouse platforms in Azure. 
+    Proven leader of cross-functional squads (10-12 engineers) delivering business-critical insights. 
+    Expert in Microsoft Fabric, Databricks, and GenAI.
+
+    Key Impact & Metrics:
+    - Scale: Managed a telemetry platform processing 50 Billion+ events/month.
+    - FinOps: Reduced Azure cloud spend by $390k/year (40% savings) via cluster policies & spot instances.
+    - Compliance: Led the Secure Future Initiative (SFI) achieving 100% compliance for Identity & Network pillars.
+    - Modernization: Migrated 100+ pipelines to Microsoft Fabric with zero data loss & 40% perf gain.
+    - AI Innovation: Architected 'TICK Agent' using Azure AI Foundry & Semantic Kernel (RAG) to automate security triage.
+
+    Technical Skills:
+    - Cloud/Data: Microsoft Fabric, Azure Databricks (Spark), Synapse, ADLS Gen2, Snowflake.
+    - Languages: Python, PySpark, SQL (T-SQL/KQL), C#.
+    - AI/LLM: Azure AI Foundry, Semantic Kernel, RAG Patterns, Vector DBs.
+    - DevOps: Azure DevOps (CI/CD), Terraform (IaC), Docker.
+
+    Work History:
+    - Technical Program Manager (Cyber Defense) | Microsoft (via Infosys) | Sep 2024 - Present
+    - Technical Program Manager (CX Platform) | Microsoft (via Infosys) | May 2019 - Aug 2024
+    - Technology Lead | Microsoft (via Infosys) | Aug 2016 - Apr 2019
+    - Senior Software Engineer | Accenture | Feb 2014 - Jul 2016
+    
+    Education:
+    - Bachelor of Engineering (Computer Science), Anna University.
+    - Certifications: DP-600 (Fabric), AI-102 (Azure AI Engineer), AI-900.""" # (Paste your full context string here)
         
-        if not found:
-            st.warning("I'm focused on Data Engineering topics! Try asking about **Scale, Fabric, AI, or Costs**.")
+        try:
+            chat_completion = client.chat.completions.create(
+                messages=[
+                    {"role": "system", "content": f"Answer based on this resume: {resume_context}"},
+                    {"role": "user", "content": user_query}
+                ],
+                model="llama3-8b-8192",
+            )
+            st.success(chat_completion.choices[0].message.content)
+        except Exception as e:
+            st.error(f"Error: {e}")
+
+else:
+    # This message will show up until you finish Step 3!
+    st.warning("⚠️ Groq API Key not found. Please add it to Streamlit Secrets.")
 
 # --- TAB 4: EDUCATION ---
 with tabs[3]:
@@ -313,5 +348,6 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
 
 
