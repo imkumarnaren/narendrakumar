@@ -20,41 +20,32 @@ st.markdown("""
         background-color: #0e1117; /* Matches Streamlit Dark Mode default */
     }
     
-    /* METRIC CARD STYLING - FIXED VISIBILITY */
+    /* METRIC CARD STYLING - NUCLEAR OPTION */
     div[data-testid="stMetric"] {
-        background-color: #ffffff !important; /* Force White Card */
+        background-color: #ffffff !important;
         border: 1px solid #e0e0e0;
         padding: 15px;
         border-radius: 10px;
         box-shadow: 2px 2px 10px rgba(0,0,0,0.05);
-        text-align: center;
-    }
-    
-    /* Force Label Color (e.g., "Scale Managed") to Dark Grey */
-    div[data-testid="stMetricLabel"] > div {
-        color: #6c757d !important;
-        font-size: 14px !important;
-        font-weight: 600;
-    }
-    
-    /* Force Value Color (e.g., "50 Billion+") to Dark Blue */
-    div[data-testid="stMetricValue"] > div {
-        color: #2c3e50 !important;
-        font-size: 26px !important;
-        font-weight: 700;
+        color: #000000 !important; /* Force parent text black */
     }
 
-    /* Delta/Change Indicator */
-    div[data-testid="stMetricDelta"] > div {
-        color: #10B981 !important; /* Green for positive growth */
-        font-weight: 600;
+    /* Target EVERY element inside the metric card */
+    div[data-testid="stMetric"] * {
+        color: #2c3e50 !important; /* Force all child text dark blue */
     }
 
-    /* Typography */
-    .big-font {
-        font-size: 18px !important;
-        color: #e0e0e0; /* Light text for Dark Mode background */
-        line-height: 1.6;
+    /* Specific override for the label to be slightly lighter */
+    div[data-testid="stMetricLabel"] p, 
+    div[data-testid="stMetricLabel"] div,
+    div[data-testid="stMetricLabel"] span {
+        color: #6c757d !important; /* Grey for "Scale Managed" */
+    }
+
+    /* Specific override for the delta indicator (green arrow) */
+    div[data-testid="stMetricDelta"] div,
+    div[data-testid="stMetricDelta"] svg {
+        color: #10B981 !important; /* Keep Green */
     }
 </style>
 """, unsafe_allow_html=True)
@@ -292,3 +283,4 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
