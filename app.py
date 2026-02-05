@@ -11,33 +11,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# --- CUSTOM CSS FOR "10/10" LOOK ---
-st.markdown("""
-<style>
-    .main {
-        background-color: #f8f9fa;
-    }
-    .stMetric {
-        background-color: #ffffff;
-        padding: 15px;
-        border-radius: 10px;
-        box-shadow: 2px 2px 10px rgba(0,0,0,0.05);
-        text-align: center;
-    }
-    h1, h2, h3 {
-        color: #1a7801;
-    }
-    .big-font {
-        font-size: 20px !important;
-        font-weight: 500;
-        color: #1a7801;
-    }
-    .highlight {
-        color: #1a7801; /* Azure Blue */
-        font-weight: bold;
-    }
-</style>
-""", unsafe_allow_html=True)
+
 
 # --- SIDEBAR: PROFILE & CONTACT ---
 with st.sidebar:
@@ -222,5 +196,6 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
 
 
