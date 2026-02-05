@@ -95,11 +95,11 @@ with tabs[0]:
     
     # Timeline Data
     timeline_data = [
-        dict(Role="Mgr: Microsoft Cyber Defense", Company="Infosys", Start='2024-09-01', End=datetime.today().strftime('%Y-%m-%d'), Category="Leadership"),
-        dict(Role="Mgr: Microsoft CX Platform", Company="Infosys", Start='2019-05-01', End='2024-08-30', Category="Leadership"),
-        dict(Role="Tech Lead: Microsoft CX", Company="Infosys", Start='2016-08-01', End='2019-04-30', Category="Tech Lead"),
-        dict(Role="Senior Software Engineer", Company="Accenture", Start='2014-02-01', End='2016-07-30', Category="Engineering"),
-        dict(Role="Software Engineer", Company="Carevoyant", Start='2011-12-01', End='2014-01-30', Category="Engineering"),
+         dict(Role="Technology Lead - CAN", Company="Infosys", Start='2019-05-02', End=datetime.today().strftime('%Y-%m-%d'), Type="Leadership"),
+        dict(Role="Technology Lead", Company="Infosys", Start='2016-08-01', End='2019-05-01', Type="Technical Lead"),
+        dict(Role="Senior Software Engineer", Company="Accenture", Start='2014-02-14', End='2016-07-30', Type="Individual Contributor"),
+        dict(Role="Software Engineer Grade - 3", Company="Carevoyant", Start='2011-12-05', End='2014-01-31', Type="Individual Contributor"),
+        dict(Role="Software Engineer", Company="Medall HealthCare", Start='2010-09-13', End='2011-11-30', Type="Individual Contributor"),
     ]
     df_timeline = pd.DataFrame(timeline_data)
     fig = px.timeline(df_timeline, x_start="Start", x_end="End", y="Role", color="Category", 
@@ -117,7 +117,7 @@ with tabs[0]:
         * **Reliability:** Established "Golden Path" pipeline standards for the Security Data Lake.
         """)
         
-    with st.expander("🔹 **Data Engineering Manager (CX Platform) | Microsoft (via Infosys)** | *May 2019 - Aug 2024*"):
+    with st.expander("🔹 **Data Engineering Manager (CXA Platform) | Microsoft (via Infosys)** | *May 2019 - Aug 2024*"):
         st.markdown("""
         * **Massive Scale:** Owned telemetry platform processing **50 Billion+ events/month**.
         * **Modernization:** Orchestrated migration of **100+ pipelines** to **Microsoft Fabric** and OneLake (40% perf gain).
@@ -222,4 +222,5 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
 
