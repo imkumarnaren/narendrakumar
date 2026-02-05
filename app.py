@@ -320,7 +320,7 @@ if "GROQ_API_KEY" in st.secrets:
                     {"role": "system", "content": f"Answer based on this resume: {resume_context}"},
                     {"role": "user", "content": user_query}
                 ],
-                model="llama3-8b-8192",
+                model="llama-3.3-70b-versatile",
             )
             st.success(chat_completion.choices[0].message.content)
         except Exception as e:
@@ -348,6 +348,7 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
 
 
 
