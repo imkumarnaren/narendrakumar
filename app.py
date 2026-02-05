@@ -33,7 +33,7 @@ st.markdown("""
         color: #5f6368;
     }
     .highlight {
-        color: #0078D4; /* Azure Blue */
+        color: #1a7801; /* Azure Blue */
         font-weight: bold;
     }
 </style>
