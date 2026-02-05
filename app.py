@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import graphviz
 import plotly.express as px
 from datetime import datetime
 
@@ -146,32 +147,93 @@ with tabs[0]:
 
 # --- TAB 2: SKILLS (TREEMAP) ---
 with tabs[1]:
-    st.subheader("Technical Proficiency Ecosystem")
+     technical_skills = {
+    "01": ("Modern Data Stack", "Microsoft Fabric, Databricks (Spark), Synapse, ADLS Gen2, Snowflake, Power BI"),
+    "02": ("Data Engineering Langs", "Python, PySpark, SQL (T-SQL, KQL), C#, Go (Learning)"),
+    "03": ("Architecture Patterns", "Lakehouse (Delta), Medallion (Bronze/Silver/Gold), Event-Driven, Streaming"),
+    "04": ("AI & GenAI Ops", "Azure AI Foundry, Semantic Kernel, RAG Patterns, Vector DBs, Copilot Studio"),
+    "05": ("DevOps & Cloud Infra", "Azure DevOps (CI/CD), Terraform (IaC), Docker, Kubernetes, Git")
+}
+
+# Right Side: Leadership & Strategy Skills
+leadership_skills = {
+    "06": ("Engineering Leadership", "Managing 10-12 Engineers, Hiring, Performance Mgmt, DataOps Culture"),
+    "07": ("Strategy & Roadmap", "Platform Modernization (Fabric Migration), Capacity Planning, OKR Alignment"),
+    "08": ("Governance & Security", "Microsoft Purview, Unity Catalog, SFI Compliance, PII Protection, Zero Trust"),
+    "09": ("FinOps & Efficiency", "Cloud Cost Optimization ($390k savings), Compute/Storage Lifecycle Mgmt"),
+    "10": ("Operational Excellence", "Defining SLAs/SLOs, Data Quality Frameworks, Incident Response standards")
+}
+
+# --- 2. Initialize Graphviz ---
+# 'neato' or 'twopi' engines are often good for radial layouts, 
+# but 'dot' with rankdir=LR gives a clean left-to-right flow like the example image.
+graph = graphviz.Digraph(engine='dot')
+
+# --- 3. Global Styling Attributes ---
+graph.attr(rankdir='LR',  # Left to Right layout
+           splines='polyline', # Straight lines with bends looks cleaner here
+           nodesep='0.4',      # Spacing between nodes
+           ranksep='2.0',      # Spacing between ranks (left, center, right columns)
+           bgcolor='#FFFFFF')  # Background color
+
+# Default node style
+graph.attr('node', shape='box', style='filled, rounded', fontname='Helvetica', penwidth='2', margin='0.2')
+# Default edge style
+graph.attr('edge', fontname='Helvetica', penwidth='1.5', color='#555555', arrowhead='none')
+
+
+# --- 4. Create the Center Node ---
+# Using HTML-like label for rich formatting within the node
+center_label = <<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0">
+  <TR><TD><FONT POINT-SIZE="16"><B>NARENDRAKUMAR</B></FONT></TD></TR>
+  <TR><TD>Data Eng Manager &amp; Architect</TD></TR>
+  <TR><TD><I>Core Competencies Hub</I></TD></TR>
+</TABLE>>
+
+graph.node('CENTER', label=center_label, shape='circle', 
+           fillcolor='#2c3e50', fontcolor='white', width='2.5', height='2.5', fixedsize='true')
+
+
+# --- 5. Create Left Side Nodes (Technical) & Connections ---
+# Using a blue/cyan color scheme for technical skills
+for key, (title, details) in technical_skills.items():
+    node_id = f"L_{key}"
+    # HTML Label for structured content (Number | Title | Details)
+    label = <<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#0078D4">
+      <TR>
+        <TD WIDTH="30" BGCOLOR="#005a9e"><FONT COLOR="white"><B>{key}</B></FONT></TD>
+        <TD ALIGN="LEFT" BGCOLOR="#E6F2FF">
+          <FONT POINT-SIZE="12"><B>{title}</B></FONT><BR/>
+          <FONT POINT-SIZE="10">{details}</FONT>
+        </TD>
+      </TR>
+    </TABLE>>
     
-    # Skills Data for Visual
-    skills = {
-        "Category": ["Modern Data Stack", "Modern Data Stack", "Modern Data Stack", "Modern Data Stack", "Modern Data Stack",
-                     "Languages", "Languages", "Languages", 
-                     "GenAI & LLM", "GenAI & LLM", "GenAI & LLM",
-                     "DevOps", "DevOps"],
-        "Skill": ["Microsoft Fabric", "Databricks (Spark)", "ADLS Gen2", "Synapse", "Snowflake",
-                  "Python/PySpark", "SQL (T-SQL/KQL)", "C#",
-                  "Azure AI Foundry", "Semantic Kernel", "RAG Patterns",
-                  "Terraform (IaC)", "Azure DevOps CI/CD"],
-        "Value": [10, 10, 9, 8, 8, 10, 10, 7, 9, 8, 9, 8, 9]
-    }
-    df_skills = pd.DataFrame(skills)
-    fig_tree = px.treemap(df_skills, path=['Category', 'Skill'], values='Value', 
-                          color='Category', color_discrete_sequence=px.colors.qualitative.Pastel)
-    st.plotly_chart(fig_tree, use_container_width=True)
+    graph.node(node_id, label=label, color='#0078D4', fillcolor='white')
+    graph.edge(node_id, 'CENTER', color='#0078D4') # Connect to center
+
+
+# --- 6. Create Right Side Nodes (Leadership) & Connections ---
+# Using an orange/purple scheme for leadership skills
+for key, (title, details) in leadership_skills.items():
+    node_id = f"R_{key}"
+    # HTML Label similar to above
+    label = <<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#D83B01">
+      <TR>
+        <TD ALIGN="RIGHT" BGCOLOR="#FDF3F0">
+          <FONT POINT-SIZE="12"><B>{title}</B></FONT><BR/>
+          <FONT POINT-SIZE="10">{details}</FONT>
+        </TD>
+        <TD WIDTH="30" BGCOLOR="#A42E01"><FONT COLOR="white"><B>{key}</B></FONT></TD>
+      </TR>
+    </TABLE>>
     
-    col_s1, col_s2 = st.columns(2)
-    with col_s1:
-        st.success("**Core Data Stack**")
-        st.write("Microsoft Fabric, Azure Databricks, Synapse, ADLS Gen2, Snowflake, Cosmos DB, Power BI.")
-    with col_s2:
-        st.info("**Engineering Languages**")
-        st.write("Python, PySpark, SQL (T-SQL, KQL), C#, Delta Lake.")
+    graph.node(node_id, label=label, color='#D83B01', fillcolor='white')
+    # Note: connecting FROM center TO right node helps guide the layout engine
+    graph.edge('CENTER', node_id, color='#D83B01') 
+
+# --- 7. Render the Graph in Streamlit ---
+st.graphviz_chart(graph, use_container_width=True)
 
 # --- TAB 3: AI & LEADERSHIP ---
 with tabs[2]:
@@ -229,6 +291,7 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
 
 
 
