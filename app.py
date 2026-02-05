@@ -58,7 +58,7 @@ with st.sidebar:
     st.markdown("### 📥 Actions")
     # In a real app, you would load the actual PDF file here
     with open("app.py", "rb") as file:
-        st.download_button("📄 Download Resume PDF", data=file, file_name="Narendrakumar_Resume.pdf")
+        st.download_button("📄 Download Resume PDF", data=file, file_name="Narendrakumar_Data_Engg_Manager.pdf")
 
 # --- HERO SECTION ---
 col1, col2 = st.columns([2, 1])
@@ -222,3 +222,4 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
