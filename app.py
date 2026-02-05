@@ -140,20 +140,20 @@ with tabs[1]:
 
     # Left Side: Technical Hard Skills
     technical_skills = {
-        "01": ("Modern Data Stack", "Microsoft Fabric, Databricks (Spark), Synapse, ADLS Gen2, Snowflake, Power BI"),
-        "02": ("Data Engineering Langs", "Python, PySpark, SQL (T-SQL, KQL), C#, Go (Learning)"),
-        "03": ("Architecture Patterns", "Lakehouse (Delta), Medallion (Bronze/Silver/Gold), Event-Driven, Streaming"),
-        "04": ("AI & GenAI Ops", "Azure AI Foundry, Semantic Kernel, RAG Patterns, Vector DBs, Copilot Studio"),
-        "05": ("DevOps & Cloud Infra", "Azure DevOps (CI/CD), Terraform (IaC), Docker, Kubernetes, Git")
+        "01": ("Modern Data Stack"),  
+        "02": ("Data Engineering Langs"),
+        "03": ("Architecture Patterns"),
+        "04": ("AI & GenAI Ops"),
+        "05": ("DevOps & Cloud Infra")
     }
 
     # Right Side: Leadership & Strategy Skills
     leadership_skills = {
-        "06": ("Engineering Leadership", "Managing 10-12 Engineers, Hiring, Performance Mgmt, DataOps Culture"),
-        "07": ("Strategy & Roadmap", "Platform Modernization (Fabric Migration), Capacity Planning, OKR Alignment"),
-        "08": ("Governance & Security", "Microsoft Purview, Unity Catalog, SFI Compliance, PII Protection, Zero Trust"),
-        "09": ("FinOps & Efficiency", "Cloud Cost Optimization ($390k savings), Compute/Storage Lifecycle Mgmt"),
-        "10": ("Operational Excellence", "Defining SLAs/SLOs, Data Quality Frameworks, Incident Response standards")
+        "06": ("Engineering Leadership"),
+        "07": ("Strategy & Roadmap"),
+        "08": ("Governance & Security"),
+        "09": ("FinOps & Efficiency"),
+        "10": ("Operational Excellence")
     }
 
     # Initialize Graphviz
@@ -175,7 +175,7 @@ with tabs[1]:
                fillcolor='#2c3e50', fontcolor='white', width='2.5', height='2.5', fixedsize='true')
 
     # Create Left Nodes
-    for key, (title, details) in technical_skills.items():
+    for key, (title) in technical_skills.items():
         node_id = f"L_{key}"
         label = f"""<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#0078D4">
           <TR>
@@ -265,4 +265,5 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
 
