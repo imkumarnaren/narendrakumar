@@ -226,44 +226,74 @@ with tabs[1]:
     st.graphviz_chart(graph, use_container_width=True)
 
 # --- TAB 3: AI & LEADERSHIP ---
+# --- INSIDE TAB 3 ---
 with tabs[2]:
-    c1, c2 = st.columns(2)
+    st.subheader("⚖️ Leadership & Technical Balance")
     
-    with c1:
-        st.markdown("### 🤖 Showcase: 'TICK Agent'")
+    # Data for Radar Chart
+    categories = ['Strategic Vision', 'People Management', 'Cloud Architecture', 
+                  'Coding/Hands-on', 'FinOps/Cost Optimization', 'Governance/SFI']
+    values = [5, 5, 5, 4, 5, 5]  # Scale of 1-5
+
+    df_radar = pd.DataFrame(dict(
+        r=values,
+        theta=categories
+    ))
+
+    fig_radar = px.line_polar(df_radar, r='r', theta='theta', line_close=True,
+                              title="Competency Radar (Scale 1-5)")
+    
+    fig_radar.update_traces(fill='toself', line_color='#0078D4')
+    fig_radar.update_layout(
+        polar=dict(
+            radialaxis=dict(visible=True, range=[0, 5])
+        ),
+        showlegend=False,
+        height=400
+    )
+    
+    col_radar1, col_radar2 = st.columns([1, 1])
+    with col_radar1:
+        st.plotly_chart(fig_radar, use_container_width=True)
+    with col_radar2:
         st.info("""
-        **Problem:** Manual triage of massive security logs was too slow.
-        **Solution:** Architected a GenAI retrieval system using Azure AI Foundry.
-        **Result:** Reduced manual investigation time by ~30%.
-        """)
-        
-    with c2:
-        st.markdown("### 👔 Core Leadership Strengths")
-        st.write("""
-        - **Data Strategy:** Roadmap planning, migration to Fabric, aligning with OKRs.
-        - **Governance:** Databricks Unity Catalog, Microsoft Purview, SFI Compliance.
-        - **FinOps:** Reducing unit cost of data through compute/storage optimization.
-        - **Operational Excellence:** Managing SLAs/SLOs and Incident Response.
+        **Interpretation:**
+        * **5/5 Strategy & Governance:** Ready to lead SFI compliance and roadmap planning.
+        * **4/5 Coding:** I still merge PRs and review architectural code (Python/Terraform).
+        * **5/5 FinOps:** Deep expertise in saving money ($390k/yr) via optimizations.
         """)
     
     # INTERACTIVE AI SIMULATION
+    # --- SMARTER SEARCH LOGIC ---
     st.markdown("---")
-    st.subheader("💬 Ask My Resume (AI Simulation)")
-    st.caption("Ask questions like: 'What is your experience with Fabric?' or 'How much money did you save?'")
+    st.subheader("💬 Chat with My Professional Persona")
+    st.caption("Ask me about: *Fabric, Scale, Team Size, Savings, or AI*")
+
+    # Knowledge Base (Dictionary of keywords : Answer)
+    knowledge_base = {
+        "fabric": "I have executed **100+ pipeline migrations** to Microsoft Fabric, achieving a **40% performance gain** and zero data loss.",
+        "spark": "I am an expert in Spark internals (Databricks). I optimized shuffle partitions and caching to save **$390k/year**.",
+        "cost": "FinOps is my specialty. I reduced Azure spend by **40%** ($390k/yr) using Spot Instances and storage lifecycle policies.",
+        "team": "I currently manage a cross-functional squad of **12 engineers** (Data, DevOps, Analytics) and mentor Senior Engineers to Tech Leads.",
+        "scale": "I own a platform processing **50 Billion+ events/month**. I know how to handle high-throughput ingestion using Event Hubs and Kafka.",
+        "ai": "I architected 'TICK Agent' using **Azure AI Foundry** and **Semantic Kernel** (RAG) to automate security triage by 30%.",
+        "contact": "You can reach me at **mail2naren887@gmail.com** or on LinkedIn."
+    }
+
+    query = st.text_input("Type your question here...", placeholder="Ex: What is your experience with Cost Optimization?")
     
-    query = st.text_input("Type your question here...")
     if query:
-        q = query.lower()
-        if "fabric" in q:
-            st.success("✅ **Expertise:** I have successfully executed **100+ pipeline migrations** to Microsoft Fabric with zero data loss, achieving a **40% performance gain**.")
-        elif "save" in q or "cost" in q or "finops" in q:
-            st.success("💰 **FinOps:** I delivered **$390K+/year** in cloud savings by optimizing Spark clusters and storage lifecycle management.")
-        elif "team" in q or "lead" in q:
-            st.success("👥 **Leadership:** I manage a cross-functional squad of **10-12 engineers** (Data, DevOps, Analytics) and foster a high-performance DataOps culture.")
-        elif "ai" in q or "genai" in q:
-            st.success("🤖 **AI Ready:** I architected the 'TICK Agent' using Azure AI Foundry and Semantic Kernel to automate security triage.")
-        else:
-            st.warning("I can answer questions about my Skills, Experience, FinOps savings, or Leadership style!")
+        query_lower = query.lower()
+        found = False
+        # Simple Keyword Search
+        for key, response in knowledge_base.items():
+            if key in query_lower:
+                st.success(f"**Answer:** {response}")
+                found = True
+                break  # Stop after first match
+        
+        if not found:
+            st.warning("I'm focused on Data Engineering topics! Try asking about **Scale, Fabric, AI, or Costs**.")
 
 # --- TAB 4: EDUCATION ---
 with tabs[3]:
@@ -283,4 +313,5 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
 
