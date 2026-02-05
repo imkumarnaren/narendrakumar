@@ -92,14 +92,14 @@ with tabs[0]:
     
     # Timeline Data
     timeline_data = [
-        dict(Role="Technology Lead - CAN", Company="Infosys", Start='2019-05-02', End=datetime.today().strftime('%Y-%m-%d'), Category="Leadership"),
-        dict(Role="Technology Lead", Company="Infosys", Start='2016-08-01', End='2019-05-01', Category="Tech Lead"),
+        dict(Role="Technology Lead - CAN", Company="Infosys", Client="Microsoft", Start='2019-05-02', End=datetime.today().strftime('%Y-%m-%d'), Category="Leadership"),
+        dict(Role="Technology Lead", Company="Infosys",Client="Microsoft", Start='2016-08-01', End='2019-05-01', Category="Tech Lead"),
         dict(Role="Senior Software Engineer", Company="Accenture", Start='2014-02-14', End='2016-07-26', Category="Engineering"),
         dict(Role="Software Engineer - Grade 3", Company="Carevoyant", Start='2011-12-05', End='2014-01-31', Category="Engineering"),
         dict(Role="Software Engineer", Company="Medall", Start='2010-09-13', End='2011-11-30', Category="Engineering"),
     ]
     df_timeline = pd.DataFrame(timeline_data)
-    fig = px.timeline(df_timeline, x_start="Start", x_end="End", y="Company", color="Category", 
+    fig = px.timeline(df_timeline, x_start="Start", x_end="End", y="Company", color="Category",text ="Client"
                       color_discrete_map={"Leadership": "#0078D4", "Tech Lead": "#8B5CF6", "Engineering": "#10B981"})
     fig.update_yaxes(autorange="reversed")
     st.plotly_chart(fig, use_container_width=True)
@@ -219,6 +219,7 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
 
 
 
