@@ -177,11 +177,11 @@ with tabs[1]:
     # Create Left Nodes
     for key, (title) in technical_skills.items():
         node_id = f"L_{key}"
-        label = f"""<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#0078D4">
+        label = f"""<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#0078D4">
           <TR>
-            <TD WIDTH="30" BGCOLOR="#005a9e"><FONT COLOR="white"><B>{key}</B></FONT></TD>
+            <TD WIDTH="25" BGCOLOR="#005a9e"><FONT COLOR="white"><B>{key}</B></FONT></TD>
             <TD ALIGN="LEFT" BGCOLOR="#E6F2FF">
-              <FONT POINT-SIZE="12"><B>{title}</B></FONT><BR/>
+              <FONT POINT-SIZE="10"><B>{title}</B></FONT><BR/>
             </TD>
           </TR>
         </TABLE>>"""
@@ -192,12 +192,12 @@ with tabs[1]:
     # Create Right Nodes
     for key, (title) in leadership_skills.items():
         node_id = f"R_{key}"
-        label = f"""<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#D83B01">
+        label = f"""<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#D83B01">
           <TR>
             <TD ALIGN="RIGHT" BGCOLOR="#FDF3F0">
-              <FONT POINT-SIZE="12"><B>{title}</B></FONT><BR/>
+              <FONT POINT-SIZE="10"><B>{title}</B></FONT><BR/>
             </TD>
-            <TD WIDTH="30" BGCOLOR="#A42E01"><FONT COLOR="white"><B>{key}</B></FONT></TD>
+            <TD WIDTH="25" BGCOLOR="#A42E01"><FONT COLOR="white"><B>{key}</B></FONT></TD>
           </TR>
         </TABLE>>"""
         
@@ -265,6 +265,7 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
 
 
 
