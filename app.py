@@ -15,25 +15,45 @@ st.set_page_config(
 # --- CUSTOM CSS FOR "10/10" LOOK ---
 st.markdown("""
 <style>
+    /* Main Background */
     .main {
         background-color: #f8f9fa;
     }
-    .stMetric {
-        background-color: #ffffff; /* Changed to white for better contrast */
+    
+    /* METRIC CARD STYLING - FIXED VISIBILITY */
+    div[data-testid="stMetric"] {
+        background-color: #ffffff !important;
+        border: 1px solid #e0e0e0;
         padding: 15px;
         border-radius: 10px;
         box-shadow: 2px 2px 10px rgba(0,0,0,0.05);
         text-align: center;
-        color: #0078D4;
-        border: 1px solid #e0e0e0;
     }
+    
+    /* Force Label Color (e.g., "Scale Managed") to Dark Grey */
+    div[data-testid="stMetricLabel"] > div {
+        color: #6c757d !important;
+        font-size: 14px !important;
+        font-weight: 600;
+    }
+    
+    /* Force Value Color (e.g., "50 Billion+") to Dark Blue */
+    div[data-testid="stMetricValue"] > div {
+        color: #2c3e50 !important;
+        font-size: 26px !important;
+        font-weight: 700;
+    }
+
+    /* Delta/Change Indicator */
+    div[data-testid="stMetricDelta"] > div {
+        font-weight: 600;
+    }
+
+    /* Typography */
     .big-font {
-        font-size: 20px !important;
-        font-weight: 500;
-    }
-    .highlight {
-        /* Azure Blue */
-        font-weight: bold;
+        font-size: 18px !important;
+        color: #4a4a4a;
+        line-height: 1.6;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -44,7 +64,8 @@ with st.sidebar:
     st.markdown("**Data Engineering Manager**")
     st.caption("Enterprise Data Platforms, Fabric & AI")
     
-    st.image("https://cdn-icons-png.flaticon.com/512/3135/3135715.png", width=120) # Placeholder Avatar
+    # Placeholder Avatar
+    st.image("https://cdn-icons-png.flaticon.com/512/3135/3135715.png", width=120) 
     
     st.markdown("---")
     st.markdown("### 📍 Contact")
@@ -55,7 +76,8 @@ with st.sidebar:
     
     st.markdown("---")
     st.markdown("### 📥 Actions")
-    # In a real app, ensure the PDF exists in the directory
+    # Note: Ensure a file named 'resume.pdf' exists in your folder or this button will error
+    # using __file__ as a placeholder so the app runs without error
     with open(__file__, "rb") as file:
         st.download_button("📄 Download Resume PDF", data=file, file_name="Narendrakumar_Resume.pdf")
 
@@ -66,16 +88,18 @@ with col1:
     st.title("Professional Summary")
     st.markdown("""
     <p class="big-font">
-    Hands on - Data Engineering Manager with 15+ years of experience in architecting and operating petabyte-scale Lakehouse platforms in Azure. 
-    Proven people manager leading cross-functional squads (10 - 12 engineers: Data, DevOps, Analytics) to deliver business-critical insights and AI-ready datasets. 
-    Deep expertise in Microsoft Fabric, Databricks, and Azure Data Services; successfully executed 100+ pipeline migrations to Fabric with zero data loss, achieving a 40% performance gain. 
-    Delivered $390K+/year in cloud savings through FinOps, drove 100% SFI/GDPR compliance, and championed SLO-driven reliability and "Golden Path" standards to accelerate delivery across high-volume telemetry platforms (50B+ events/month).
+    <b>Hands-on Data Engineering Manager</b> with 15+ years of experience in architecting and operating petabyte-scale Lakehouse platforms in Azure. 
+    Proven people manager leading cross-functional squads (10-12 engineers) to deliver business-critical insights and AI-ready datasets. 
+    <br><br>
+    Deep expertise in <b>Microsoft Fabric</b>, <b>Databricks</b>, and <b>Azure Data Services</b>; successfully executed 100+ pipeline migrations to Fabric with zero data loss, achieving a 40% performance gain. 
+    Delivered <b>$390K+/year</b> in cloud savings through FinOps, drove 100% SFI/GDPR compliance, and championed SLO-driven reliability and "Golden Path" standards to accelerate delivery across high-volume telemetry platforms (<b>50B+ events/month</b>).
     </p>
     """, unsafe_allow_html=True)
 
 with col2:
     # KPI CARDS
     st.markdown("### 🚀 Impact at a Glance")
+    
     m1, m2 = st.columns(2)
     m1.metric("Scale Managed", "50 Billion+", "Events / Month")
     m2.metric("Cloud Savings", "$390k+", "Per Year (FinOps)")
@@ -119,7 +143,7 @@ with tabs[0]:
         * **AI Innovation:** Architected **TICK Agent** using Azure AI Foundry.
         """)
     
-    with st.expander("🔹 **Technical Program Manager (GIGA XBOX) | Microsoft (via Infosys)** | *Oct 2024 - Aug 2025*"):
+    with st.expander("🔹 **Technical Program Manager (CX Platform) | Microsoft (via Infosys)** | *May 2019 - Aug 2024*"):
         st.markdown("""
         * **Massive Scale:** Owned telemetry platform processing **50 Billion+ events/month**.
         * **Modernization:** Orchestrated migration of **100+ pipelines** to **Microsoft Fabric** and OneLake (40% perf gain).
@@ -139,21 +163,22 @@ with tabs[1]:
     st.subheader("🕸️ Visual Skills Ecosystem")
 
     # Left Side: Technical Hard Skills
+    # NOTE: '&' MUST be written as '&amp;' for Graphviz to work
     technical_skills = {
-        "01": ("Modern Data Stack"),  
-        "02": ("Data Engineering Langs"),
-        "03": ("Architecture Patterns"),
-        "04": ("AI &amp; GenAI Ops"),
-        "05": ("DevOps &amp; Cloud Infra")
+        "01": ("Modern Data Stack", "Microsoft Fabric, Databricks (Spark), Synapse, ADLS Gen2, Snowflake, Power BI"),
+        "02": ("Data Engineering Langs", "Python, PySpark, SQL (T-SQL, KQL), C#, Go (Learning)"),
+        "03": ("Architecture Patterns", "Lakehouse (Delta), Medallion (Bronze/Silver/Gold), Event-Driven, Streaming"),
+        "04": ("AI &amp; GenAI Ops", "Azure AI Foundry, Semantic Kernel, RAG Patterns, Vector DBs, Copilot Studio"), 
+        "05": ("DevOps &amp; Cloud Infra", "Azure DevOps (CI/CD), Terraform (IaC), Docker, Kubernetes, Git")
     }
 
     # Right Side: Leadership & Strategy Skills
     leadership_skills = {
-        "06": ("Engineering Leadership"),
-        "07": ("Strategy &amp; Roadmap"),
-        "08": ("Governance &amp; Security"),
-        "09": ("FinOps &amp; Efficiency"),
-        "10": ("Operational Excellence")
+        "06": ("Engineering Leadership", "Managing 10-12 Engineers, Hiring, Performance Mgmt, DataOps Culture"),
+        "07": ("Strategy &amp; Roadmap", "Platform Modernization (Fabric Migration), Capacity Planning, OKR Alignment"),
+        "08": ("Governance &amp; Security", "Microsoft Purview, Unity Catalog, SFI Compliance, PII Protection, Zero Trust"),
+        "09": ("FinOps &amp; Efficiency", "Cloud Cost Optimization ($390k savings), Compute/Storage Lifecycle Mgmt"),
+        "10": ("Operational Excellence", "Defining SLAs/SLOs, Data Quality Frameworks, Incident Response standards")
     }
 
     # Initialize Graphviz
@@ -165,18 +190,24 @@ with tabs[1]:
     graph.attr('edge', fontname='Helvetica', penwidth='1.5', color='#555555', arrowhead='none')
 
     # Create Center Node
+    center_label = """<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0">
+      <TR><TD><FONT POINT-SIZE="16"><B>NARENDRAKUMAR</B></FONT></TD></TR>
+      <TR><TD>Data Eng Manager &amp; Architect</TD></TR>
+      <TR><TD><I>Core Competencies Hub</I></TD></TR>
+    </TABLE>>"""
     
-    graph.node('CENTER', label="SkillSet", shape='circle',   
+    graph.node('CENTER', label=center_label, shape='circle', 
                fillcolor='#2c3e50', fontcolor='white', width='2.5', height='2.5', fixedsize='true')
 
     # Create Left Nodes
-    for key, (title) in technical_skills.items():
+    for key, (title, details) in technical_skills.items():
         node_id = f"L_{key}"
-        label = f"""<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#0078D4">
+        label = f"""<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#0078D4">
           <TR>
-            <TD WIDTH="25" BGCOLOR="#005a9e"><FONT COLOR="white"><B>{key}</B></FONT></TD>
+            <TD WIDTH="30" BGCOLOR="#005a9e"><FONT COLOR="white"><B>{key}</B></FONT></TD>
             <TD ALIGN="LEFT" BGCOLOR="#E6F2FF">
-              <FONT POINT-SIZE="10"><B>{title}</B></FONT><BR/>
+              <FONT POINT-SIZE="12"><B>{title}</B></FONT><BR/>
+              <FONT POINT-SIZE="10">{details}</FONT>
             </TD>
           </TR>
         </TABLE>>"""
@@ -185,14 +216,15 @@ with tabs[1]:
         graph.edge(node_id, 'CENTER', color='#0078D4')
 
     # Create Right Nodes
-    for key, (title) in leadership_skills.items():
+    for key, (title, details) in leadership_skills.items():
         node_id = f"R_{key}"
-        label = f"""<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#D83B01">
+        label = f"""<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#D83B01">
           <TR>
             <TD ALIGN="RIGHT" BGCOLOR="#FDF3F0">
-              <FONT POINT-SIZE="10"><B>{title}</B></FONT><BR/>
+              <FONT POINT-SIZE="12"><B>{title}</B></FONT><BR/>
+              <FONT POINT-SIZE="10">{details}</FONT>
             </TD>
-            <TD WIDTH="25" BGCOLOR="#A42E01"><FONT COLOR="white"><B>{key}</B></FONT></TD>
+            <TD WIDTH="30" BGCOLOR="#A42E01"><FONT COLOR="white"><B>{key}</B></FONT></TD>
           </TR>
         </TABLE>>"""
         
@@ -238,7 +270,7 @@ with tabs[2]:
         elif "team" in q or "lead" in q:
             st.success("👥 **Leadership:** I manage a cross-functional squad of **10-12 engineers** (Data, DevOps, Analytics) and foster a high-performance DataOps culture.")
         elif "ai" in q or "genai" in q:
-            st.success("🤖 **AI Ready:** I architected the 'Agent' using Azure AI Foundry and Semantic Kernel to automate security triage.")
+            st.success("🤖 **AI Ready:** I architected the 'TICK Agent' using Azure AI Foundry and Semantic Kernel to automate security triage.")
         else:
             st.warning("I can answer questions about my Skills, Experience, FinOps savings, or Leadership style!")
 
@@ -260,14 +292,3 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
-
-
-
-
-
-
-
-
-
-
-
