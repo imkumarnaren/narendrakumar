@@ -5,7 +5,7 @@ from datetime import datetime
 
 # --- PAGE CONFIGURATION ---
 st.set_page_config(
-    page_title="Narendrakumar Nagarajan | Data Engineering Manager",
+    page_title="Narendrakumar Nagarajan",
     page_icon="🚀",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -51,7 +51,7 @@ with st.sidebar:
     st.markdown("### 📍 Contact")
     st.write("🏙️ Vancouver, BC, Canada")
     st.write("📧 mail2naren887@gmail.com")
-    st.write("📱 +1 (604) 401-9816")
+    st.write("📱 +1 (***) ***-****")
     st.markdown("[🔗 LinkedIn Profile](https://www.linkedin.com/in/naren887)")
     
     st.markdown("---")
@@ -64,7 +64,7 @@ with st.sidebar:
 col1, col2 = st.columns([2, 1])
 
 with col1:
-    st.title("Architecting Petabyte-Scale Data Platforms")
+    st.title("Professional Summary")
     st.markdown("""
     <p class="big-font">
     Hands-on <b>Data Engineering Manager</b> with 15+ years of experience. 
@@ -222,6 +222,7 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
 
 
 
