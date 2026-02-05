@@ -182,7 +182,6 @@ with tabs[1]:
             <TD WIDTH="30" BGCOLOR="#005a9e"><FONT COLOR="white"><B>{key}</B></FONT></TD>
             <TD ALIGN="LEFT" BGCOLOR="#E6F2FF">
               <FONT POINT-SIZE="12"><B>{title}</B></FONT><BR/>
-              <FONT POINT-SIZE="10">{details}</FONT>
             </TD>
           </TR>
         </TABLE>>"""
@@ -197,7 +196,6 @@ with tabs[1]:
           <TR>
             <TD ALIGN="RIGHT" BGCOLOR="#FDF3F0">
               <FONT POINT-SIZE="12"><B>{title}</B></FONT><BR/>
-              <FONT POINT-SIZE="10">{details}</FONT>
             </TD>
             <TD WIDTH="30" BGCOLOR="#A42E01"><FONT COLOR="white"><B>{key}</B></FONT></TD>
           </TR>
@@ -245,7 +243,7 @@ with tabs[2]:
         elif "team" in q or "lead" in q:
             st.success("👥 **Leadership:** I manage a cross-functional squad of **10-12 engineers** (Data, DevOps, Analytics) and foster a high-performance DataOps culture.")
         elif "ai" in q or "genai" in q:
-            st.success("🤖 **AI Ready:** I architected the 'TICK Agent' using Azure AI Foundry and Semantic Kernel to automate security triage.")
+            st.success("🤖 **AI Ready:** I architected the 'Agent' using Azure AI Foundry and Semantic Kernel to automate security triage.")
         else:
             st.warning("I can answer questions about my Skills, Experience, FinOps savings, or Leadership style!")
 
@@ -267,3 +265,4 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
