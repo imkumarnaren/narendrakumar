@@ -143,16 +143,16 @@ with tabs[1]:
         "01": ("Modern Data Stack"),  
         "02": ("Data Engineering Langs"),
         "03": ("Architecture Patterns"),
-        "04": ("AI &amp GenAI Ops"),
-        "05": ("DevOps &amp Cloud Infra")
+        "04": ("AI &amp; GenAI Ops"),
+        "05": ("DevOps &amp; Cloud Infra")
     }
 
     # Right Side: Leadership & Strategy Skills
     leadership_skills = {
         "06": ("Engineering Leadership"),
-        "07": ("Strategy &amp Roadmap"),
-        "08": ("Governance & Security"),
-        "09": ("FinOps &amp Efficiency"),
+        "07": ("Strategy &amp; Roadmap"),
+        "08": ("Governance &amp; Security"),
+        "09": ("FinOps &amp; Efficiency"),
         "10": ("Operational Excellence")
     }
 
@@ -265,6 +265,7 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
 
 
 
