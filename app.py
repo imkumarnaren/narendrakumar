@@ -165,13 +165,9 @@ with tabs[2]:
     c1, c2 = st.columns(2)
     
     with c1:
-        st.markdown("### 🤖 GenAI Showcase: 'TICK Agent'")
+        st.markdown("### 🤖 Showcase: 'Agent'")
         st.info("""
         **Problem:** Manual triage of massive security logs was too slow.
-        **Solution:** Architected a GenAI retrieval system using **Azure AI Foundry** & **Semantic Kernel**.
-        **Outcome:** * Automated query generation against KQL/Security Logs.
-        * Reduced manual investigation time by **~30%**.
-        * Implemented RAG patterns for accuracy.
         """)
         
     with c2:
@@ -220,6 +216,7 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
 
 
 
