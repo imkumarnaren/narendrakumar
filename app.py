@@ -25,7 +25,7 @@ st.markdown("""
         text-align: center;
     }
     h1, h2, h3 {
-        color: #2c3e50;
+        color: ##2ca12e;
     }
     .big-font {
         font-size: 20px !important;
@@ -222,3 +222,4 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
