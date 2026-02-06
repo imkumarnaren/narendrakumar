@@ -4,6 +4,7 @@ import graphviz
 import plotly.express as px
 from datetime import datetime
 from groq import Groq
+import PyPDF2
 
 # --- PAGE CONFIGURATION ---
 st.set_page_config(
@@ -76,68 +77,61 @@ with st.sidebar:
  # INTERACTIVE AI SIMULATION
     # --- SMARTER SEARCH LOGIC ---
     st.markdown("---")
-st.subheader("💬 Chat with My AI Agent")
+st.subheader("💬 Chat with Narendra's AI Agent")
 
-# 1. READ THE KEY SECURELY
-# This line looks for the key in Streamlit Cloud's internal safe.
-# It does NOT look in this file.
-if "GROQ_API_KEY" in st.secrets:
-    api_key = st.secrets["GROQ_API_KEY"]
-    client = Groq(api_key=api_key)
-    
-    # 2. CHAT LOGIC
-    user_query = st.text_input("Ask me anything about Narendra's experience:", placeholder="Ex: What is his experience with DataPlatform?")
+
+
+# --- FUNCTION TO READ PDF ---
+def get_pdf_text(filename):
+    try:
+        with open(filename, 'rb') as file:
+            reader = PyPDF2.PdfReader(file)
+            text = ""
+            for page in reader.pages:
+                text += page.extract_text()
+            return text
+    except FileNotFoundError:
+        return None
+
+# 1. LOAD THE RESUME TEXT
+# Make sure this filename matches exactly what you uploaded to GitHub!
+resume_filename = "Narendrakumar_Resume.pdf" 
+pdf_text = get_pdf_text(resume_filename)
+
+# 2. CHAT INTERFACE
+if pdf_text:
+    user_query = st.text_input("Ask me anything about Narendra's experience:", 
+                               placeholder="Ex: What is his experience with Azure?")
     
     if user_query:
-        # Define context again here or ensure it's accessible
-        resume_context = """Name: Narendrakumar Nagarajan
-    Title: Data Engineering Manager & Principal Data Architect
-    Location: Vancouver, BC, Canada
-    Experience: 15+ Years in Data Engineering & Architecture.
-
-    Professional Summary:
-    Hands-on Data Engineering Manager architecting petabyte-scale Lakehouse platforms in Azure. 
-    Proven leader of cross-functional squads (10-12 engineers) delivering business-critical insights. 
-    Expert in Microsoft Fabric, Databricks, and GenAI.
-
-    Key Impact & Metrics:
-    - Scale: Managed a telemetry platform processing 50 Billion+ events/month.
-    - FinOps: Reduced Azure cloud spend by $390k/year (40% savings) via cluster policies & spot instances.
-    - Compliance: Led the Secure Future Initiative (SFI) achieving 100% compliance for Identity & Network pillars.
-    - Modernization: Migrated 100+ pipelines to Microsoft Fabric with zero data loss & 40% perf gain.
-    - AI Innovation: Architected 'TICK Agent' using Azure AI Foundry & Semantic Kernel (RAG) to automate security triage.
-
-    Technical Skills:
-    - Cloud/Data: Microsoft Fabric, Azure Databricks (Spark), Synapse, ADLS Gen2, Snowflake.
-    - Languages: Python, PySpark, SQL (T-SQL/KQL), C#.
-    - AI/LLM: Azure AI Foundry, Semantic Kernel, RAG Patterns, Vector DBs.
-    - DevOps: Azure DevOps (CI/CD), Terraform (IaC), Docker.
-
-    Work History:
-    - Technical Program Manager (Cyber Defense) | Microsoft (via Infosys) | Sep 2024 - Present
-    - Technical Program Manager (CX Platform) | Microsoft (via Infosys) | May 2019 - Aug 2024
-    - Technology Lead | Microsoft (via Infosys) | Aug 2016 - Apr 2019
-    - Senior Software Engineer | Accenture | Feb 2014 - Jul 2016
-    
-    Education:
-    - Bachelor of Engineering (Computer Science), Anna University.
-    - Certifications: DP-600 (Fabric), AI-102 (Azure AI Engineer), AI-900.""" # (Paste your full context string here)
-        
-        try:
-            chat_completion = client.chat.completions.create(
-                messages=[
-                    {"role": "system", "content": f"Answer based on this resume: {resume_context}"},
-                    {"role": "user", "content": user_query}
-                ],
-                model="llama-3.3-70b-versatile",
-            )
-            st.success(chat_completion.choices[0].message.content)
-        except Exception as e:
-            st.error(f"Error: {e}")
-
+        # Check for API Key
+        if "GROQ_API_KEY" in st.secrets:
+            api_key = st.secrets["GROQ_API_KEY"]
+            client = Groq(api_key=api_key)
+            
+            try:
+                with st.spinner("Reading resume and thinking..."):
+                    chat_completion = client.chat.completions.create(
+                        messages=[
+                            {
+                                "role": "system", 
+                                "content": f"You are a helpful assistant for Narendrakumar. Answer questions strictly based on the following resume text. If the answer is not in the text, say you don't know. \n\nRESUME TEXT:\n{pdf_text}"
+                            },
+                            {
+                                "role": "user", 
+                                "content": user_query
+                            }
+                        ],
+                        model="llama-3.3-70b-versatile", # The new supported model
+                    )
+                    
+                    st.success(f"**AI Response:** {chat_completion.choices[0].message.content}")
+            except Exception as e:
+                st.error(f"Error: {e}")
+        else:
+            st.warning("⚠️ Groq API Key not found in Secrets.")
 else:
-    # This message will show up until you finish Step 3!
-    st.warning("⚠️ Groq API Key not found. Please add it to Streamlit Secrets.")
+    st.error(f"⚠️ Could not find '{resume_filename}'. Please upload it to your GitHub repository.")
 
 # --- HERO SECTION ---
 col1, col2 = st.columns([2, 1])
@@ -350,6 +344,7 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
 
 
 
