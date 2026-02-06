@@ -4,3 +4,5 @@ graphviz
 plotly
 groq
 PyPDF2
+os
+textwrap
