@@ -13,7 +13,67 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# INTERACTIVE AI SIMULATION
+
+# --- CUSTOM CSS FOR "10/10" LOOK ---
+st.markdown("""
+<style>
+    /* Main Background */
+    .main {
+        background-color: #0e1117; /* Matches Streamlit Dark Mode default */
+    }
+    
+    /* METRIC CARD STYLING - NUCLEAR OPTION */
+    div[data-testid="stMetric"] {
+        background-color: #ffffff !important;
+        border: 1px solid #e0e0e0;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 2px 2px 10px rgba(0,0,0,0.05);
+        color: #000000 !important; /* Force parent text black */
+    }
+
+    /* Target EVERY element inside the metric card */
+    div[data-testid="stMetric"] * {
+        color: #2c3e50 !important; /* Force all child text dark blue */
+    }
+
+    /* Specific override for the label to be slightly lighter */
+    div[data-testid="stMetricLabel"] p, 
+    div[data-testid="stMetricLabel"] div,
+    div[data-testid="stMetricLabel"] span {
+        color: #6c757d !important; /* Grey for "Scale Managed" */
+    }
+
+    /* Specific override for the delta indicator (green arrow) */
+    div[data-testid="stMetricDelta"] div,
+    div[data-testid="stMetricDelta"] svg {
+        color: #10B981 !important; /* Keep Green */
+    }
+</style>
+""", unsafe_allow_html=True)
+
+# --- SIDEBAR: PROFILE & CONTACT ---
+with st.sidebar:
+    st.markdown("## 👨‍💻 Narendrakumar Nagarajan")
+    st.markdown("**Data Engineering Manager**")
+    st.caption("Enterprise Data Platforms, Fabric & AI")
+    
+    # Placeholder Avatar
+    st.image("https://cdn-icons-png.flaticon.com/512/3135/3135715.png", width=120) 
+    
+    st.markdown("---")
+    st.markdown("### 📍 Contact")
+    st.write("🏙️ Vancouver, BC, Canada")
+    st.write("📧 mail2naren887@gmail.com")
+    #st.write("📱 +1 (604) 401-9816") 
+    st.markdown("[🔗 LinkedIn Profile](https://www.linkedin.com/in/naren887)")
+    
+    st.markdown("---")
+    st.markdown("### 📥 Actions")
+    # Placeholder for PDF download
+    with open(__file__, "rb") as file:
+        st.download_button("📄 Download Resume PDF", data=file, file_name="Narendrakumar_Resume.pdf")
+ # INTERACTIVE AI SIMULATION
     # --- SMARTER SEARCH LOGIC ---
     st.markdown("---")
 st.subheader("💬 Chat with My AI Agent")
@@ -78,65 +138,6 @@ if "GROQ_API_KEY" in st.secrets:
 else:
     # This message will show up until you finish Step 3!
     st.warning("⚠️ Groq API Key not found. Please add it to Streamlit Secrets.")
-# --- CUSTOM CSS FOR "10/10" LOOK ---
-st.markdown("""
-<style>
-    /* Main Background */
-    .main {
-        background-color: #0e1117; /* Matches Streamlit Dark Mode default */
-    }
-    
-    /* METRIC CARD STYLING - NUCLEAR OPTION */
-    div[data-testid="stMetric"] {
-        background-color: #ffffff !important;
-        border: 1px solid #e0e0e0;
-        padding: 15px;
-        border-radius: 10px;
-        box-shadow: 2px 2px 10px rgba(0,0,0,0.05);
-        color: #000000 !important; /* Force parent text black */
-    }
-
-    /* Target EVERY element inside the metric card */
-    div[data-testid="stMetric"] * {
-        color: #2c3e50 !important; /* Force all child text dark blue */
-    }
-
-    /* Specific override for the label to be slightly lighter */
-    div[data-testid="stMetricLabel"] p, 
-    div[data-testid="stMetricLabel"] div,
-    div[data-testid="stMetricLabel"] span {
-        color: #6c757d !important; /* Grey for "Scale Managed" */
-    }
-
-    /* Specific override for the delta indicator (green arrow) */
-    div[data-testid="stMetricDelta"] div,
-    div[data-testid="stMetricDelta"] svg {
-        color: #10B981 !important; /* Keep Green */
-    }
-</style>
-""", unsafe_allow_html=True)
-
-# --- SIDEBAR: PROFILE & CONTACT ---
-with st.sidebar:
-    st.markdown("## 👨‍💻 Narendrakumar Nagarajan")
-    st.markdown("**Data Engineering Manager**")
-    st.caption("Enterprise Data Platforms, Fabric & AI")
-    
-    # Placeholder Avatar
-    st.image("https://cdn-icons-png.flaticon.com/512/3135/3135715.png", width=120) 
-    
-    st.markdown("---")
-    st.markdown("### 📍 Contact")
-    st.write("🏙️ Vancouver, BC, Canada")
-    st.write("📧 mail2naren887@gmail.com")
-    #st.write("📱 +1 (604) 401-9816") 
-    st.markdown("[🔗 LinkedIn Profile](https://www.linkedin.com/in/naren887)")
-    
-    st.markdown("---")
-    st.markdown("### 📥 Actions")
-    # Placeholder for PDF download
-    with open(__file__, "rb") as file:
-        st.download_button("📄 Download Resume PDF", data=file, file_name="Narendrakumar_Resume.pdf")
 
 # --- HERO SECTION ---
 col1, col2 = st.columns([2, 1])
@@ -329,71 +330,7 @@ with tabs[2]:
         * **5/5 FinOps:** Deep expertise in saving money ($390k/yr) via optimizations.
         """)
     
-    # INTERACTIVE AI SIMULATION
-    # --- SMARTER SEARCH LOGIC ---
-    st.markdown("---")
-st.subheader("💬 Chat with My AI Agent")
-
-# 1. READ THE KEY SECURELY
-# This line looks for the key in Streamlit Cloud's internal safe.
-# It does NOT look in this file.
-if "GROQ_API_KEY" in st.secrets:
-    api_key = st.secrets["GROQ_API_KEY"]
-    client = Groq(api_key=api_key)
-    
-    # 2. CHAT LOGIC
-    user_query = st.text_input("Ask me anything about Narendra's experience:", placeholder="Ex: What is his experience with DataPlatform?")
-    
-    if user_query:
-        # Define context again here or ensure it's accessible
-        resume_context = """Name: Narendrakumar Nagarajan
-    Title: Data Engineering Manager & Principal Data Architect
-    Location: Vancouver, BC, Canada
-    Experience: 15+ Years in Data Engineering & Architecture.
-
-    Professional Summary:
-    Hands-on Data Engineering Manager architecting petabyte-scale Lakehouse platforms in Azure. 
-    Proven leader of cross-functional squads (10-12 engineers) delivering business-critical insights. 
-    Expert in Microsoft Fabric, Databricks, and GenAI.
-
-    Key Impact & Metrics:
-    - Scale: Managed a telemetry platform processing 50 Billion+ events/month.
-    - FinOps: Reduced Azure cloud spend by $390k/year (40% savings) via cluster policies & spot instances.
-    - Compliance: Led the Secure Future Initiative (SFI) achieving 100% compliance for Identity & Network pillars.
-    - Modernization: Migrated 100+ pipelines to Microsoft Fabric with zero data loss & 40% perf gain.
-    - AI Innovation: Architected 'TICK Agent' using Azure AI Foundry & Semantic Kernel (RAG) to automate security triage.
-
-    Technical Skills:
-    - Cloud/Data: Microsoft Fabric, Azure Databricks (Spark), Synapse, ADLS Gen2, Snowflake.
-    - Languages: Python, PySpark, SQL (T-SQL/KQL), C#.
-    - AI/LLM: Azure AI Foundry, Semantic Kernel, RAG Patterns, Vector DBs.
-    - DevOps: Azure DevOps (CI/CD), Terraform (IaC), Docker.
-
-    Work History:
-    - Technical Program Manager (Cyber Defense) | Microsoft (via Infosys) | Sep 2024 - Present
-    - Technical Program Manager (CX Platform) | Microsoft (via Infosys) | May 2019 - Aug 2024
-    - Technology Lead | Microsoft (via Infosys) | Aug 2016 - Apr 2019
-    - Senior Software Engineer | Accenture | Feb 2014 - Jul 2016
-    
-    Education:
-    - Bachelor of Engineering (Computer Science), Anna University.
-    - Certifications: DP-600 (Fabric), AI-102 (Azure AI Engineer), AI-900.""" # (Paste your full context string here)
-        
-        try:
-            chat_completion = client.chat.completions.create(
-                messages=[
-                    {"role": "system", "content": f"Answer based on this resume: {resume_context}"},
-                    {"role": "user", "content": user_query}
-                ],
-                model="llama-3.3-70b-versatile",
-            )
-            st.success(chat_completion.choices[0].message.content)
-        except Exception as e:
-            st.error(f"Error: {e}")
-
-else:
-    # This message will show up until you finish Step 3!
-    st.warning("⚠️ Groq API Key not found. Please add it to Streamlit Secrets.")
+   
 
 # --- TAB 4: EDUCATION ---
 with tabs[3]:
@@ -413,6 +350,7 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
 
 
 
