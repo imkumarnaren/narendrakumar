@@ -56,10 +56,13 @@ st.markdown("""
 # --- SIDEBAR: PROFILE & CONTACT ---
 with st.sidebar:
     st.markdown("## 👨‍💻 Narendrakumar Nagarajan")
-    st.markdown("**Open to Roles: Data Engineering Manager**")
-    st.markdown("**Principal Data & AI Engineer**")
-    st.markdown("**Staff Data & AI Engineer**")
-    st.markdown("**Senior Data & AI Engineer**")
+    st.markdown("""
+    **Open to:**
+    - Data Engineering Manager
+    - Principal Data & AI Engineer
+    - Staff Data & AI Engineer
+    - Senior Data & AI Engineer
+    """)
     st.caption("Enterprise Data Platforms, Fabric & AI")
     
     # Placeholder Avatar
@@ -354,6 +357,7 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
 
 
 
