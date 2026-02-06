@@ -207,3 +207,113 @@ with tabs[0]:
                     <li>Developed HL7 healthcare parsers for <b>Carevoyant</b>.</li>
                 </ul>
             </div>
+        </div>
+        
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.subheader("Detailed Roles")
+    
+    with st.expander("🔹 **Technical Program Manager (Cyber Defense Engineering) | Microsoft (via Infosys)** | *Sep 2024 - Present*", expanded=False):
+        st.markdown("""
+        * **Strategic Execution:** Managing a cross-functional squad of **10+ engineers**. Improved delivery velocity by implementing DataOps (automated testing, CI/CD).
+        * **Governance (SFI):** Led the **Secure Future Initiative**, achieving **100% compliance** across Identity and Network pillars.
+        * **Reliability:** Established "Golden Path" pipeline standards for the Security Data Lake.
+        * **AI Innovation:** Architected **TICK Agent** using Azure AI Foundry.
+        """)
+    
+    with st.expander("🔹 **Technical Program Manager (CX Platform) | Microsoft (via Infosys)** | *May 2019 - Aug 2024*"):
+        st.markdown("""
+        * **Massive Scale:** Owned telemetry platform processing **50 Billion+ events/month**.
+        * **Modernization:** Orchestrated migration of **100+ pipelines** to **Microsoft Fabric** and OneLake (40% perf gain).
+        * **FinOps:** Reduced Azure spend by **$240K-$390K/year** via cluster policies and spot instances.
+        * **Team Building:** Mentored 12 engineers, transitioning Senior DEs into Tech Leads.
+        """)
+
+    with st.expander("🔹 **Technology Lead | Microsoft (via Infosys)** | *Aug 2016 - Apr 2019*"):
+        st.markdown("""
+        * **Cloud Migration:** Architected "R3" BI migration (SQL On-prem to Azure PaaS), saving **$150K/year**.
+        * **Data Modeling:** Designed Star Schema for 150+ entities and delivered 40+ Power BI dashboards (500+ DAU).
+        * **Quality:** Improved Data Freshness SLA from 85% to 99.9%.
+        """)
+
+# --- TAB 2: SKILLS (GRAPHVIZ) ---
+with tabs[1]:
+    st.subheader("🕸️ Visual Skills Ecosystem")
+
+    technical_skills = {
+        "01": ("Modern Data Stack", "Microsoft Fabric, Databricks (Spark), Synapse, ADLS Gen2, Snowflake, Power BI"),
+        "02": ("Data Engineering Langs", "Python, PySpark, SQL (T-SQL, KQL), C#, Go (Learning)"),
+        "03": ("Architecture Patterns", "Lakehouse (Delta), Medallion (Bronze/Silver/Gold), Event-Driven, Streaming"),
+        "04": ("AI &amp; GenAI Ops", "Azure AI Foundry, Semantic Kernel, RAG Patterns, Vector DBs, Copilot Studio"), 
+        "05": ("DevOps &amp; Cloud Infra", "Azure DevOps (CI/CD), Terraform (IaC), Docker, Kubernetes, Git")
+    }
+
+    leadership_skills = {
+        "06": ("Engineering Leadership", "Managing 10-12 Engineers, Hiring, Performance Mgmt, DataOps Culture"),
+        "07": ("Strategy &amp; Roadmap", "Platform Modernization (Fabric Migration), Capacity Planning, OKR Alignment"),
+        "08": ("Governance &amp; Security", "Microsoft Purview, Unity Catalog, SFI Compliance, PII Protection, Zero Trust"),
+        "09": ("FinOps &amp; Efficiency", "Cloud Cost Optimization ($390k savings), Compute/Storage Lifecycle Mgmt"),
+        "10": ("Operational Excellence", "Defining SLAs/SLOs, Data Quality Frameworks, Incident Response standards")
+    }
+
+    graph = graphviz.Digraph(engine='dot')
+    graph.attr(rankdir='LR', splines='polyline', nodesep='0.4', ranksep='2.0', bgcolor='#FFFFFF')
+    graph.attr('node', shape='box', style='filled, rounded', fontname='Helvetica', penwidth='2', margin='0.2')
+    graph.attr('edge', fontname='Helvetica', penwidth='1.5', color='#555555', arrowhead='none')
+
+    center_label = """<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0"><TR><TD><FONT POINT-SIZE="16"><B>NARENDRAKUMAR</B></FONT></TD></TR><TR><TD>Data Eng Manager &amp; Architect</TD></TR><TR><TD><I>Core Competencies Hub</I></TD></TR></TABLE>>"""
+    graph.node('CENTER', label=center_label, shape='circle', fillcolor='#2c3e50', fontcolor='white', width='2.5', height='2.5', fixedsize='true')
+
+    for key, (title, details) in technical_skills.items():
+        node_id = f"L_{key}"
+        label = f"""<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#0078D4"><TR><TD WIDTH="30" BGCOLOR="#005a9e"><FONT COLOR="white"><B>{key}</B></FONT></TD><TD ALIGN="LEFT" BGCOLOR="#E6F2FF"><FONT POINT-SIZE="12"><B>{title}</B></FONT><BR/><FONT POINT-SIZE="10">{details}</FONT></TD></TR></TABLE>>"""
+        graph.node(node_id, label=label, color='#0078D4', fillcolor='white')
+        graph.edge(node_id, 'CENTER', color='#0078D4')
+
+    for key, (title, details) in leadership_skills.items():
+        node_id = f"R_{key}"
+        label = f"""<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#D83B01"><TR><TD ALIGN="RIGHT" BGCOLOR="#FDF3F0"><FONT POINT-SIZE="12"><B>{title}</B></FONT><BR/><FONT POINT-SIZE="10">{details}</FONT></TD><TD WIDTH="30" BGCOLOR="#A42E01"><FONT COLOR="white"><B>{key}</B></FONT></TD></TR></TABLE>>"""
+        graph.node(node_id, label=label, color='#D83B01', fillcolor='white')
+        graph.edge('CENTER', node_id, color='#D83B01')
+
+    st.graphviz_chart(graph, use_container_width=True)
+
+# --- TAB 3: AI & LEADERSHIP ---
+with tabs[2]:
+    st.subheader("⚖️ Leadership & Technical Balance")
+    categories = ['Strategic Vision', 'People Management', 'Cloud Architecture', 'Coding/Hands-on', 'FinOps/Cost Optimization', 'Governance/SFI']
+    values = [5, 5, 5, 4, 5, 5]
+
+    df_radar = pd.DataFrame(dict(r=values, theta=categories))
+    fig_radar = px.line_polar(df_radar, r='r', theta='theta', line_close=True, title="Competency Radar (Scale 1-5)")
+    fig_radar.update_traces(fill='toself', line_color='#0078D4')
+    fig_radar.update_layout(polar=dict(radialaxis=dict(visible=True, range=[0, 5])), showlegend=False, height=400)
+    
+    col_radar1, col_radar2 = st.columns([1, 1])
+    with col_radar1:
+        st.plotly_chart(fig_radar, use_container_width=True)
+    with col_radar2:
+        st.info("""
+        **Interpretation:**
+        * **5/5 Strategy & Governance:** Ready to lead SFI compliance and roadmap planning.
+        * **4/5 Coding:** I still merge PRs and review architectural code (Python/Terraform).
+        * **5/5 FinOps:** Deep expertise in saving money ($390k/yr) via optimizations.
+        """)
+
+# --- TAB 4: EDUCATION ---
+with tabs[3]:
+    st.markdown("### 🎓 Certifications & Education")
+    col_e1, col_e2 = st.columns(2)
+    with col_e1:
+        st.markdown("**Certifications**")
+        st.write("🏅 **Microsoft Certified:** Fabric Analytics Engineer Associate (DP-600)")
+        st.write("🏅 **Microsoft Certified:** Azure AI Engineer Associate (AI-102)")
+        st.write("🏅 **Microsoft Certified:** Azure AI Fundamentals (AI-900)")
+    with col_e2:
+        st.markdown("**Education**")
+        st.write("🎓 **Bachelor of Engineering (B.E.), Computer Science**")
+        st.write("Anna University, Chennai, India (2010)")
+
+st.markdown("---")
+st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
