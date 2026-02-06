@@ -6,7 +6,6 @@ from datetime import datetime
 from groq import Groq
 import PyPDF2
 import os
-import textwrap # CRITICAL IMPORT FOR FIXING HTML RENDERING
 
 # --- PAGE CONFIGURATION ---
 st.set_page_config(
@@ -16,11 +15,122 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# --- HELPER FUNCTIONS ---
+# --- 1. DEFINE HTML CONTENT GLOBALLY (NO INDENTATION) ---
+TIMELINE_HTML = """
+<style>
+    .timeline-container { 
+        border-left: 4px solid #e0e0e0; 
+        margin-left: 20px; 
+        padding-left: 30px; 
+        position: relative; 
+    }
+    .timeline-item { 
+        margin-bottom: 40px; 
+        position: relative; 
+    }
+    .timeline-dot { 
+        width: 20px; 
+        height: 20px; 
+        background-color: #0078D4; 
+        border-radius: 50%; 
+        position: absolute; 
+        left: -42px; 
+        top: 5px; 
+        border: 4px solid white; 
+        box-shadow: 0 0 0 1px #e0e0e0; 
+    }
+    .timeline-date { 
+        font-weight: bold; 
+        color: #0078D4; 
+        font-size: 14px; 
+        margin-bottom: 5px; 
+        text-transform: uppercase; 
+        letter-spacing: 1px; 
+    }
+    .timeline-title { 
+        font-size: 18px; 
+        font-weight: 700; 
+        color: #ffffff; 
+        margin-bottom: 8px; 
+    }
+    .timeline-desc { 
+        color: #c0c0c0; 
+        font-size: 15px; 
+        line-height: 1.6; 
+    }
+    .highlight { 
+        background-color: #262730; 
+        padding: 2px 6px; 
+        border-radius: 4px; 
+        font-weight: 600; 
+        font-size: 0.9em;
+        color: #ffffff;
+        border: 1px solid #444;
+    }
+</style>
 
+<div class="timeline-container">
+    
+    <div class="timeline-item">
+        <div class="timeline-dot" style="background-color: #8B5CF6;"></div>
+        <div class="timeline-date">Sep 2024 – Present</div>
+        <div class="timeline-title">Principal Data Engineer & Squad Lead (Cyber Defense)</div>
+        <div class="timeline-desc">
+            Leading the integration of <b>Generative AI</b> into Security Operations at Microsoft.
+            <ul>
+                <li>Architected the <span class="highlight">TICK Agent</span> using Azure AI Foundry & Semantic Kernel.</li>
+                <li>Led the <b>Secure Future Initiative (SFI)</b> achieving 100% compliance across the Data Estate.</li>
+                <li>Standardized "Golden Path" CI/CD templates for a squad of 10+ engineers.</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="timeline-item">
+        <div class="timeline-dot" style="background-color: #0078D4;"></div>
+        <div class="timeline-date">May 2019 – Aug 2024</div>
+        <div class="timeline-title">Staff Data Engineer & Platform Manager (CX Platform)</div>
+        <div class="timeline-desc">
+            Managed a hyper-scale telemetry platform processing <span class="highlight">50 Billion+ events/month</span>.
+            <ul>
+                <li>Orchestrated the migration of <b>100+ pipelines</b> to Microsoft Fabric & OneLake.</li>
+                <li>Optimized Databricks clusters to save <b>$390k/year</b> (FinOps).</li>
+                <li>Built and mentored a high-performing team of <b>12 engineers</b>.</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="timeline-item">
+        <div class="timeline-dot" style="background-color: #2ecc71;"></div>
+        <div class="timeline-date">Aug 2016 – Apr 2019</div>
+        <div class="timeline-title">Tech Lead & Cloud Architect (Infosys)</div>
+        <div class="timeline-desc">
+            Led the strategic migration from on-premise Legacy stacks to <b>Azure Cloud</b>.
+            <ul>
+                <li>Architected the "R3" migration to Azure SQL & ADF, saving $150k annually.</li>
+                <li>Designed complex <b>Star Schema</b> models for Power BI used by 500+ daily users.</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="timeline-item">
+        <div class="timeline-dot" style="background-color: #95a5a6;"></div>
+        <div class="timeline-date">2010 – 2016</div>
+        <div class="timeline-title">Senior Software Engineer (Accenture & Medall)</div>
+        <div class="timeline-desc">
+            Built the rigorous backend engineering foundation in <b>C#, .NET, and SQL Server</b>.
+            <ul>
+                <li>Designed financial ETL systems for <b>Accenture</b>.</li>
+                <li>Developed HL7 healthcare parsers for <b>Carevoyant</b>.</li>
+            </ul>
+        </div>
+    </div>
+    
+</div>
+"""
+
+# --- HELPER FUNCTIONS ---
 @st.cache_data
 def get_pdf_text(filename):
-    """Reads PDF text safely."""
     try:
         with open(filename, 'rb') as file:
             reader = PyPDF2.PdfReader(file)
@@ -30,121 +140,6 @@ def get_pdf_text(filename):
             return text
     except FileNotFoundError:
         return None
-
-def get_timeline_html():
-    """Returns the HTML for the Professional Journey Timeline."""
-    # We use textwrap.dedent to remove leading spaces so Markdown doesn't treat it as code
-    return textwrap.dedent("""
-    <style>
-        .timeline-container { 
-            border-left: 4px solid #e0e0e0; 
-            margin-left: 20px; 
-            padding-left: 30px; 
-            position: relative; 
-        }
-        .timeline-item { 
-            margin-bottom: 40px; 
-            position: relative; 
-        }
-        .timeline-dot { 
-            width: 20px; 
-            height: 20px; 
-            background-color: #0078D4; 
-            border-radius: 50%; 
-            position: absolute; 
-            left: -42px; 
-            top: 5px; 
-            border: 4px solid white; 
-            box-shadow: 0 0 0 1px #e0e0e0; 
-        }
-        .timeline-date { 
-            font-weight: bold; 
-            color: #0078D4; 
-            font-size: 14px; 
-            margin-bottom: 5px; 
-            text-transform: uppercase; 
-            letter-spacing: 1px; 
-        }
-        .timeline-title { 
-            font-size: 18px; 
-            font-weight: 700; 
-            color: #ffffff; /* White for Dark Mode */
-            margin-bottom: 8px; 
-        }
-        .timeline-desc { 
-            color: #c0c0c0; /* Light Grey for Dark Mode */
-            font-size: 15px; 
-            line-height: 1.6; 
-        }
-        .highlight { 
-            background-color: #262730; 
-            padding: 2px 6px; 
-            border-radius: 4px; 
-            font-weight: 600; 
-            font-size: 0.9em;
-            color: #ffffff;
-            border: 1px solid #444;
-        }
-    </style>
-    
-    <div class="timeline-container">
-        
-        <div class="timeline-item">
-            <div class="timeline-dot" style="background-color: #8B5CF6;"></div>
-            <div class="timeline-date">Sep 2024 – Present</div>
-            <div class="timeline-title">Principal Data Engineer & Squad Lead (Cyber Defense)</div>
-            <div class="timeline-desc">
-                Leading the integration of <b>Generative AI</b> into Security Operations at Microsoft.
-                <ul>
-                    <li>Architected the <span class="highlight">TICK Agent</span> using Azure AI Foundry & Semantic Kernel.</li>
-                    <li>Led the <b>Secure Future Initiative (SFI)</b> achieving 100% compliance across the Data Estate.</li>
-                    <li>Standardized "Golden Path" CI/CD templates for a squad of 10+ engineers.</li>
-                </ul>
-            </div>
-        </div>
-        
-        <div class="timeline-item">
-            <div class="timeline-dot" style="background-color: #0078D4;"></div>
-            <div class="timeline-date">May 2019 – Aug 2024</div>
-            <div class="timeline-title">Staff Data Engineer & Platform Manager (CX Platform)</div>
-            <div class="timeline-desc">
-                Managed a hyper-scale telemetry platform processing <span class="highlight">50 Billion+ events/month</span>.
-                <ul>
-                    <li>Orchestrated the migration of <b>100+ pipelines</b> to Microsoft Fabric & OneLake.</li>
-                    <li>Optimized Databricks clusters to save <b>$390k/year</b> (FinOps).</li>
-                    <li>Built and mentored a high-performing team of <b>12 engineers</b>.</li>
-                </ul>
-            </div>
-        </div>
-        
-        <div class="timeline-item">
-            <div class="timeline-dot" style="background-color: #2ecc71;"></div>
-            <div class="timeline-date">Aug 2016 – Apr 2019</div>
-            <div class="timeline-title">Tech Lead & Cloud Architect (Infosys)</div>
-            <div class="timeline-desc">
-                Led the strategic migration from on-premise Legacy stacks to <b>Azure Cloud</b>.
-                <ul>
-                    <li>Architected the "R3" migration to Azure SQL & ADF, saving $150k annually.</li>
-                    <li>Designed complex <b>Star Schema</b> models for Power BI used by 500+ daily users.</li>
-                </ul>
-            </div>
-        </div>
-        
-        <div class="timeline-item">
-            <div class="timeline-dot" style="background-color: #95a5a6;"></div>
-            <div class="timeline-date">2010 – 2016</div>
-            <div class="timeline-title">Senior Software Engineer (Accenture & Medall)</div>
-            <div class="timeline-desc">
-                Built the rigorous backend engineering foundation in <b>C#, .NET, and SQL Server</b>.
-                <ul>
-                    <li>Designed financial ETL systems for <b>Accenture</b>.</li>
-                    <li>Developed HL7 healthcare parsers for <b>Carevoyant</b>.</li>
-                </ul>
-            </div>
-        </div>
-        
-    </div>
-    """)
 
 # --- GLOBAL CSS ---
 st.markdown("""
@@ -221,7 +216,7 @@ with col2:
 
 st.divider()
 
-# --- TOP SECTION: CHAT AGENT ---
+# --- CHAT AGENT ---
 st.subheader("💬 Chat with Narendra's Resume Agent")
 st.info("💡 **Ask me anything!** This agent uses RAG (Retrieval Augmented Generation) to answer questions based strictly on my resume PDF.")
 
@@ -252,18 +247,15 @@ else:
 
 st.divider()
 
-# --- TABS FOR DETAILED VIEW ---
+# --- TABS ---
 tabs = st.tabs(["💼 Experience", "🛠️ Skills", "🤖 AI & Leadership", "🎓 Education"])
 
 # --- TAB 1: EXPERIENCE ---
 with tabs[0]:
     st.subheader("🛤️ Professional Journey")
     
-    # 1. Get the Cleaned HTML
-    timeline_html = get_timeline_html()
-    
-    # 2. Render it (unsafe_allow_html must be True)
-    st.markdown(timeline_html, unsafe_allow_html=True)
+    # RENDER THE GLOBAL HTML VARIABLE
+    st.markdown(TIMELINE_HTML, unsafe_allow_html=True)
     
     st.subheader("Detailed Roles")
     
@@ -332,7 +324,7 @@ with tabs[1]:
 
     st.graphviz_chart(graph, use_container_width=True)
 
-# --- TAB 3: AI & LEADERSHIP ---
+# --- TAB 3: RADAR ---
 with tabs[2]:
     st.subheader("⚖️ Leadership & Technical Balance")
     categories = ['Strategic Vision', 'People Management', 'Cloud Architecture', 'Coding/Hands-on', 'FinOps/Cost Optimization', 'Governance/SFI']
