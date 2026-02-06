@@ -6,6 +6,7 @@ from datetime import datetime
 from groq import Groq
 import PyPDF2
 import os
+import textwrap # CRITICAL IMPORT FOR FIXING HTML RENDERING
 
 # --- PAGE CONFIGURATION ---
 st.set_page_config(
@@ -31,16 +32,59 @@ def get_pdf_text(filename):
         return None
 
 def get_timeline_html():
-    """Returns the HTML for the Professional Journey Timeline to keep main logic clean."""
-    return """
+    """Returns the HTML for the Professional Journey Timeline."""
+    # We use textwrap.dedent to remove leading spaces so Markdown doesn't treat it as code
+    return textwrap.dedent("""
     <style>
-        .timeline-container { border-left: 4px solid #e0e0e0; margin-left: 20px; padding-left: 30px; position: relative; }
-        .timeline-item { margin-bottom: 40px; position: relative; }
-        .timeline-dot { width: 20px; height: 20px; background-color: #0078D4; border-radius: 50%; position: absolute; left: -42px; top: 5px; border: 4px solid white; box-shadow: 0 0 0 1px #e0e0e0; }
-        .timeline-date { font-weight: bold; color: #0078D4; font-size: 14px; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; }
-        .timeline-title { font-size: 18px; font-weight: 700; color: #2c3e50; margin-bottom: 8px; }
-        .timeline-desc { color: #555; font-size: 15px; line-height: 1.6; }
-        .highlight { background-color: #f0f2f6; padding: 2px 6px; border-radius: 4px; font-weight: 600; font-size: 0.9em; }
+        .timeline-container { 
+            border-left: 4px solid #e0e0e0; 
+            margin-left: 20px; 
+            padding-left: 30px; 
+            position: relative; 
+        }
+        .timeline-item { 
+            margin-bottom: 40px; 
+            position: relative; 
+        }
+        .timeline-dot { 
+            width: 20px; 
+            height: 20px; 
+            background-color: #0078D4; 
+            border-radius: 50%; 
+            position: absolute; 
+            left: -42px; 
+            top: 5px; 
+            border: 4px solid white; 
+            box-shadow: 0 0 0 1px #e0e0e0; 
+        }
+        .timeline-date { 
+            font-weight: bold; 
+            color: #0078D4; 
+            font-size: 14px; 
+            margin-bottom: 5px; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+        }
+        .timeline-title { 
+            font-size: 18px; 
+            font-weight: 700; 
+            color: #ffffff; /* White for Dark Mode */
+            margin-bottom: 8px; 
+        }
+        .timeline-desc { 
+            color: #c0c0c0; /* Light Grey for Dark Mode */
+            font-size: 15px; 
+            line-height: 1.6; 
+        }
+        .highlight { 
+            background-color: #262730; 
+            padding: 2px 6px; 
+            border-radius: 4px; 
+            font-weight: 600; 
+            font-size: 0.9em;
+            color: #ffffff;
+            border: 1px solid #444;
+        }
     </style>
     
     <div class="timeline-container">
@@ -53,7 +97,7 @@ def get_timeline_html():
                 Leading the integration of <b>Generative AI</b> into Security Operations at Microsoft.
                 <ul>
                     <li>Architected the <span class="highlight">TICK Agent</span> using Azure AI Foundry & Semantic Kernel.</li>
-                    <li>Led the <b>Secure Future Initiative (SFI)</b> achieving 100% compliance.</li>
+                    <li>Led the <b>Secure Future Initiative (SFI)</b> achieving 100% compliance across the Data Estate.</li>
                     <li>Standardized "Golden Path" CI/CD templates for a squad of 10+ engineers.</li>
                 </ul>
             </div>
@@ -100,7 +144,7 @@ def get_timeline_html():
         </div>
         
     </div>
-    """
+    """)
 
 # --- GLOBAL CSS ---
 st.markdown("""
@@ -215,10 +259,10 @@ tabs = st.tabs(["💼 Experience", "🛠️ Skills", "🤖 AI & Leadership", "�
 with tabs[0]:
     st.subheader("🛤️ Professional Journey")
     
-    # CALL THE FUNCTION TO GET HTML
+    # 1. Get the Cleaned HTML
     timeline_html = get_timeline_html()
     
-    # RENDER THE HTML SAFELY
+    # 2. Render it (unsafe_allow_html must be True)
     st.markdown(timeline_html, unsafe_allow_html=True)
     
     st.subheader("Detailed Roles")
