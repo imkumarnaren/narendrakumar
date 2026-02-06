@@ -85,7 +85,6 @@ Built the rigorous backend engineering foundation in <b>C#, .NET, and SQL Server
 </ul>
 </div>
 </div>
-</div>
 
 <div class="timeline-item">
 <div class="timeline-dot" style="background-color: #95a5a6;"></div>
@@ -433,4 +432,5 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
 
