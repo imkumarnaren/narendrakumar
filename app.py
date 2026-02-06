@@ -64,7 +64,7 @@ with st.sidebar:
     st.markdown("### 📍 Contact")
     st.write("🏙️ Vancouver, BC, Canada")
     st.write("📧 mail2naren887@gmail.com")
-    st.write("📱 +1 (604) 401-9816") 
+    #st.write("📱 +1 (604) 401-9816") 
     st.markdown("[🔗 LinkedIn Profile](https://www.linkedin.com/in/naren887)")
     
     st.markdown("---")
@@ -348,6 +348,7 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
 
 
 
