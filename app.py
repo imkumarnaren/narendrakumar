@@ -5,6 +5,7 @@ import plotly.express as px
 from datetime import datetime
 from groq import Groq
 import PyPDF2
+import os
 
 # --- PAGE CONFIGURATION ---
 st.set_page_config(
@@ -14,41 +15,99 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# --- FUNCTION TO READ PDF (Cached for Performance) ---
+@st.cache_data
+def get_pdf_text(filename):
+    try:
+        with open(filename, 'rb') as file:
+            reader = PyPDF2.PdfReader(file)
+            text = ""
+            for page in reader.pages:
+                text += page.extract_text()
+            return text
+    except FileNotFoundError:
+        return None
 
 # --- CUSTOM CSS FOR "10/10" LOOK ---
 st.markdown("""
 <style>
     /* Main Background */
     .main {
-        background-color: #0e1117; /* Matches Streamlit Dark Mode default */
+        background-color: #0e1117;
     }
     
-    /* METRIC CARD STYLING - NUCLEAR OPTION */
+    /* METRIC CARD STYLING */
     div[data-testid="stMetric"] {
         background-color: #ffffff !important;
         border: 1px solid #e0e0e0;
         padding: 15px;
         border-radius: 10px;
         box-shadow: 2px 2px 10px rgba(0,0,0,0.05);
-        color: #000000 !important; /* Force parent text black */
+        color: #000000 !important;
     }
 
-    /* Target EVERY element inside the metric card */
     div[data-testid="stMetric"] * {
-        color: #2c3e50 !important; /* Force all child text dark blue */
+        color: #2c3e50 !important;
     }
 
-    /* Specific override for the label to be slightly lighter */
     div[data-testid="stMetricLabel"] p, 
     div[data-testid="stMetricLabel"] div,
     div[data-testid="stMetricLabel"] span {
-        color: #6c757d !important; /* Grey for "Scale Managed" */
+        color: #6c757d !important;
     }
 
-    /* Specific override for the delta indicator (green arrow) */
     div[data-testid="stMetricDelta"] div,
     div[data-testid="stMetricDelta"] svg {
-        color: #10B981 !important; /* Keep Green */
+        color: #10B981 !important;
+    }
+    
+    /* Timeline Styles */
+    .timeline-container {
+        border-left: 4px solid #e0e0e0;
+        margin-left: 20px;
+        padding-left: 30px;
+        position: relative;
+    }
+    .timeline-item {
+        margin-bottom: 40px;
+        position: relative;
+    }
+    .timeline-dot {
+        width: 20px;
+        height: 20px;
+        background-color: #0078D4;
+        border-radius: 50%;
+        position: absolute;
+        left: -42px;
+        top: 5px;
+        border: 4px solid white;
+        box-shadow: 0 0 0 1px #e0e0e0;
+    }
+    .timeline-date {
+        font-weight: bold;
+        color: #0078D4;
+        font-size: 14px;
+        margin-bottom: 5px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    .timeline-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #2c3e50;
+        margin-bottom: 8px;
+    }
+    .timeline-desc {
+        color: #555;
+        font-size: 15px;
+        line-height: 1.6;
+    }
+    .highlight {
+        background-color: #f0f2f6;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-weight: 600;
+        font-size: 0.9em;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -65,86 +124,30 @@ with st.sidebar:
     """)
     st.caption("Enterprise Data Platforms, Fabric & AI")
     
-    # Placeholder Avatar
+    # Avatar
     st.image("https://cdn-icons-png.flaticon.com/512/3135/3135715.png", width=120) 
     
     st.markdown("---")
     st.markdown("### 📍 Contact")
     st.write("🏙️ Vancouver, BC, Canada")
     st.write("📧 mail2naren887@gmail.com")
-    #st.write("📱 +1 (604) 401-9816") 
     st.markdown("[🔗 LinkedIn Profile](https://www.linkedin.com/in/naren887)")
     
     st.markdown("---")
     st.markdown("### 📥 Actions")
-    # Placeholder for PDF download
-    # Inside Sidebar
-    with open("Narendrakumar_Resume.pdf", "rb") as pdf_file:
-        st.download_button(
-            label="📄 Download Official Resume",
-            data=pdf_file,
-            file_name="Narendrakumar_Nagarajan_Resume.pdf",
-            mime="application/pdf"
-        )
-        
- # INTERACTIVE AI SIMULATION
-    # --- SMARTER SEARCH LOGIC ---
-    st.markdown("---")
-st.subheader("💬 Chat with Narendra's AI Agent")
-
-
-
-# --- FUNCTION TO READ PDF ---
-def get_pdf_text(filename):
-    try:
-        with open(filename, 'rb') as file:
-            reader = PyPDF2.PdfReader(file)
-            text = ""
-            for page in reader.pages:
-                text += page.extract_text()
-            return text
-    except FileNotFoundError:
-        return None
-
-# 1. LOAD THE RESUME TEXT
-# Make sure this filename matches exactly what you uploaded to GitHub!
-resume_filename = "Narendrakumar_Resume.pdf" 
-pdf_text = get_pdf_text(resume_filename)
-
-# 2. CHAT INTERFACE
-if pdf_text:
-    user_query = st.text_input("Ask me anything about Narendra's experience:", 
-                               placeholder="Ex: What is his experience with Azure?")
     
-    if user_query:
-        # Check for API Key
-        if "GROQ_API_KEY" in st.secrets:
-            api_key = st.secrets["GROQ_API_KEY"]
-            client = Groq(api_key=api_key)
-            
-            try:
-                with st.spinner("Reading resume and thinking..."):
-                    chat_completion = client.chat.completions.create(
-                        messages=[
-                            {
-                                "role": "system", 
-                                "content": f"You are a helpful assistant for Narendrakumar. Answer questions strictly based on the following resume text. If the answer is not in the text, say you don't know. \n\nRESUME TEXT:\n{pdf_text}"
-                            },
-                            {
-                                "role": "user", 
-                                "content": user_query
-                            }
-                        ],
-                        model="llama-3.3-70b-versatile", # The new supported model
-                    )
-                    
-                    st.success(f"**AI Response:** {chat_completion.choices[0].message.content}")
-            except Exception as e:
-                st.error(f"Error: {e}")
-        else:
-            st.warning("⚠️ Groq API Key not found in Secrets.")
-else:
-    st.error(f"⚠️ Could not find '{resume_filename}'. Please upload it to your GitHub repository.")
+    # Resume Download Button
+    resume_filename = "Narendrakumar_Resume.pdf"
+    if os.path.exists(resume_filename):
+        with open(resume_filename, "rb") as pdf_file:
+            st.download_button(
+                label="📄 Download Official Resume",
+                data=pdf_file,
+                file_name="Narendrakumar_Nagarajan_Resume.pdf",
+                mime="application/pdf"
+            )
+    else:
+        st.warning("Resume PDF not found in repo.")
 
 # --- HERO SECTION ---
 col1, col2 = st.columns([2, 1])
@@ -172,69 +175,58 @@ with col2:
 
 st.divider()
 
+# --- TOP SECTION: CHAT WITH RESUME (AI AGENT) ---
+st.subheader("💬 Chat with Narendra's Resume Agent")
+st.info("💡 **Ask me anything!** This agent uses RAG (Retrieval Augmented Generation) to answer questions based strictly on my resume PDF.")
+
+# Check if PDF exists
+if os.path.exists(resume_filename):
+    pdf_text = get_pdf_text(resume_filename)
+    
+    if pdf_text:
+        user_query = st.text_input("Type your question here:", 
+                                   placeholder="Ex: What is his experience with Azure Fabric and FinOps?")
+        
+        if user_query:
+            # Check for API Key
+            if "GROQ_API_KEY" in st.secrets:
+                api_key = st.secrets["GROQ_API_KEY"]
+                client = Groq(api_key=api_key)
+                
+                try:
+                    with st.spinner("Analyzing resume..."):
+                        chat_completion = client.chat.completions.create(
+                            messages=[
+                                {
+                                    "role": "system", 
+                                    "content": f"You are a helpful assistant for Narendrakumar. Answer questions strictly based on the following resume text. If the answer is not in the text, say you don't know. \n\nRESUME TEXT:\n{pdf_text}"
+                                },
+                                {
+                                    "role": "user", 
+                                    "content": user_query
+                                }
+                            ],
+                            model="llama-3.3-70b-versatile",
+                        )
+                        
+                        st.success(f"**AI Response:** {chat_completion.choices[0].message.content}")
+                except Exception as e:
+                    st.error(f"Error: {e}")
+            else:
+                st.warning("⚠️ Groq API Key not found in Secrets. Please add it to .streamlit/secrets.toml")
+else:
+    st.error(f"⚠️ Could not find '{resume_filename}'. Please upload the PDF to your GitHub repository root folder.")
+
+st.divider()
+
 # --- TABS FOR DETAILED VIEW ---
-tabs = st.tabs(["💼 Professional Experience", "🛠️ Technical Skills", "🤖 AI & Leadership", "🎓 Education"])
+# (Removed the Chat tab from here since it's now at the top)
+tabs = st.tabs(["💼 Experience", "🛠️ Skills", "🤖 AI & Leadership", "🎓 Education"])
 
 # --- TAB 1: EXPERIENCE (TIMELINE & DETAILS) ---
 with tabs[0]:
-
-    # --- Professional Journey Section ---
     st.subheader("🛤️ Professional Journey")
     
-    # 1. Define the CSS (Styles) - This hides the raw HTML and makes it look pretty
-    st.markdown("""
-    <style>
-        .timeline-container {
-            border-left: 4px solid #e0e0e0;
-            margin-left: 20px;
-            padding-left: 30px;
-            position: relative;
-        }
-        .timeline-item {
-            margin-bottom: 40px;
-            position: relative;
-        }
-        .timeline-dot {
-            width: 20px;
-            height: 20px;
-            background-color: #0078D4;
-            border-radius: 50%;
-            position: absolute;
-            left: -42px;
-            top: 5px;
-            border: 4px solid white;
-            box-shadow: 0 0 0 1px #e0e0e0;
-        }
-        .timeline-date {
-            font-weight: bold;
-            color: #0078D4;
-            font-size: 14px;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .timeline-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: #2c3e50;
-            margin-bottom: 8px;
-        }
-        .timeline-desc {
-            color: #555;
-            font-size: 15px;
-            line-height: 1.6;
-        }
-        .highlight {
-            background-color: #f0f2f6;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: 600;
-            font-size: 0.9em;
-        }
-    </style>
-    """, unsafe_allow_html=True)
-    
-    # 2. Define the HTML Content (ensure NO backticks ``` are in this string)
     timeline_html = """
     <div class="timeline-container">
         
@@ -251,7 +243,7 @@ with tabs[0]:
                 </ul>
             </div>
         </div>
-    
+        
         <div class="timeline-item">
             <div class="timeline-dot" style="background-color: #0078D4;"></div>
             <div class="timeline-date">May 2019 – Aug 2024</div>
@@ -265,7 +257,7 @@ with tabs[0]:
                 </ul>
             </div>
         </div>
-    
+        
         <div class="timeline-item">
             <div class="timeline-dot" style="background-color: #2ecc71;"></div>
             <div class="timeline-date">Aug 2016 – Apr 2019</div>
@@ -278,7 +270,7 @@ with tabs[0]:
                 </ul>
             </div>
         </div>
-    
+        
         <div class="timeline-item">
             <div class="timeline-dot" style="background-color: #95a5a6;"></div>
             <div class="timeline-date">2010 – 2016</div>
@@ -291,32 +283,16 @@ with tabs[0]:
                 </ul>
             </div>
         </div>
-    
+        
     </div>
     """
     
-    # 3. RENDER THE HTML (This is the most important line)
+    # RENDER THE HTML
     st.markdown(timeline_html, unsafe_allow_html=True)
-    st.subheader("Career Timeline")
-    # Timeline Data
-    timeline_data = [
-        dict(Role="Technology Lead - CAN", Company="Infosys", Start='2019-05-02', End=datetime.today().strftime('%Y-%m-%d'), Category="Leadership"),
-        dict(Role="Technology Lead", Company="Infosys", Start='2016-08-01', End='2019-05-01', Category="Tech Lead"),
-        dict(Role="Senior Software Engineer", Company="Accenture", Start='2014-02-14', End='2016-07-26', Category="Engineering"),
-        dict(Role="Software Engineer Grade-3", Company="Carevoyant", Start='2011-12-05', End='2014-01-31', Category="Engineering"),
-        dict(Role="Software Engineer", Company="Medall Healthcare", Start='2010-09-13', End='2011-11-30', Category="Engineering"),
-    ]
-    df_timeline = pd.DataFrame(timeline_data)
     
-    # Plotly Timeline
-    fig = px.timeline(df_timeline, x_start="Start", x_end="End", y="Company", color="Category", text="Role",
-                      color_discrete_map={"Leadership": "#0078D4", "Tech Lead": "#8B5CF6", "Engineering": "#10B981"})
-    fig.update_yaxes(autorange="reversed")
-    st.plotly_chart(fig, use_container_width=True)
-
-    st.markdown("### Detailed Roles")
+    st.subheader("Detailed Roles")
     
-    with st.expander("🔹 **Technical Program Manager (Cyber Defense Engineering) | Microsoft (via Infosys)** | *Sep 2024 - Present*", expanded=True):
+    with st.expander("🔹 **Technical Program Manager (Cyber Defense Engineering) | Microsoft (via Infosys)** | *Sep 2024 - Present*", expanded=False):
         st.markdown("""
         * **Strategic Execution:** Managing a cross-functional squad of **10+ engineers**. Improved delivery velocity by implementing DataOps (automated testing, CI/CD).
         * **Governance (SFI):** Led the **Secure Future Initiative**, achieving **100% compliance** across Identity and Network pillars.
@@ -344,7 +320,7 @@ with tabs[1]:
     st.subheader("🕸️ Visual Skills Ecosystem")
 
     # Left Side: Technical Hard Skills
-    # NOTE: '&' MUST be written as '&amp;' for Graphviz to work
+    # NOTE: '&' MUST be written as '&amp;' for Graphviz
     technical_skills = {
         "01": ("Modern Data Stack", "Microsoft Fabric, Databricks (Spark), Synapse, ADLS Gen2, Snowflake, Power BI"),
         "02": ("Data Engineering Langs", "Python, PySpark, SQL (T-SQL, KQL), C#, Go (Learning)"),
@@ -416,7 +392,6 @@ with tabs[1]:
     st.graphviz_chart(graph, use_container_width=True)
 
 # --- TAB 3: AI & LEADERSHIP ---
-# --- INSIDE TAB 3 ---
 with tabs[2]:
     st.subheader("⚖️ Leadership & Technical Balance")
     
@@ -452,8 +427,6 @@ with tabs[2]:
         * **4/5 Coding:** I still merge PRs and review architectural code (Python/Terraform).
         * **5/5 FinOps:** Deep expertise in saving money ($390k/yr) via optimizations.
         """)
-    
-   
 
 # --- TAB 4: EDUCATION ---
 with tabs[3]:
@@ -473,27 +446,3 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
