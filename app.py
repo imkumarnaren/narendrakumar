@@ -153,11 +153,8 @@ with col1:
     st.title("Professional Summary")
     st.markdown("""
     <p class="big-font">
-    <b>Hands-on Data Engineering Manager</b> with 15+ years of experience in architecting and operating petabyte-scale Lakehouse platforms in Azure. 
-    Proven people manager leading cross-functional squads (10-12 engineers) to deliver business-critical insights and AI-ready datasets. 
-    <br><br>
-    Deep expertise in <b>Microsoft Fabric</b>, <b>Databricks</b>, and <b>Azure Data Services</b>; successfully executed 100+ pipeline migrations to Fabric with zero data loss, achieving a 40% performance gain. 
-    Delivered <b>$390K+/year</b> in cloud savings through FinOps, drove 100% SFI/GDPR compliance, and championed SLO-driven reliability and "Golden Path" standards to accelerate delivery across high-volume telemetry platforms (<b>50B+ events/month</b>).
+    <b>Hands-on Technical Leader with 15+ years of experience architecting and operating petabyte-scale Lakehouse platforms on Azure. A rare "Player-Coach" who combines Principal-level architecture skills (GenAI, Fabric, Distributed Systems) with Engineering Management capabilities (leading 12+ engineers, roadmap strategy, hiring).</b>
+    <b>Proven track record of delivering business-critical insights for Microsoft, managing platforms processing 50 Billion+ events/month. Expert in modernizing legacy stacks to Microsoft Fabric and Azure Databricks (100+ pipeline migrations), driving FinOps efficiency ($390K/year savings), and implementing GenAI Agents for security operations. Passionate about building high-performance "DataOps" cultures and "Golden Path" standards.</b>
     </p>
     """, unsafe_allow_html=True)
 
@@ -357,6 +354,7 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
 
 
 
