@@ -261,46 +261,127 @@ with tabs[0]:
         """)
 
 # --- TAB 2: SKILLS ---
+# --- TAB 2: SKILLS (MODERN CSS GRID) ---
 with tabs[1]:
-    st.subheader("🕸️ Visual Skills Ecosystem")
-
-    technical_skills = {
-        "01": ("Modern Data Stack", "Microsoft Fabric, Databricks (Spark), Synapse, ADLS Gen2, Snowflake, Power BI"),
-        "02": ("Data Engineering Langs", "Python, PySpark, SQL (T-SQL, KQL), C#, Go (Learning)"),
-        "03": ("Architecture Patterns", "Lakehouse (Delta), Medallion (Bronze/Silver/Gold), Event-Driven, Streaming"),
-        "04": ("AI &amp; GenAI Ops", "Azure AI Foundry, Semantic Kernel, RAG Patterns, Vector DBs, Copilot Studio"), 
-        "05": ("DevOps &amp; Cloud Infra", "Azure DevOps (CI/CD), Terraform (IaC), Docker, Kubernetes, Git")
+    st.subheader("🚀 Technical & Leadership Ecosystem")
+    
+    # 1. DEFINE THE SKILL DATA
+    # This separates the "Category" from the "Tools/Skills" for cleaner rendering
+    skill_data = {
+        "Technical Architecture 🛠️": [
+            {"title": "Modern Data Stack", "skills": ["Microsoft Fabric", "Databricks", "Synapse", "Snowflake", "ADLS Gen2", "OneLake"]},
+            {"title": "Languages & Core", "skills": ["Python", "PySpark", "SQL (T-SQL/KQL)", "C#", "Delta Lake"]},
+            {"title": "AI & GenAI", "skills": ["Azure AI Foundry", "Semantic Kernel", "RAG Patterns", "Vector DBs", "LLMOps"]},
+            {"title": "DevOps & Cloud", "skills": ["Azure DevOps", "Terraform (IaC)", "Docker", "Kubernetes", "CI/CD Pipelines"]},
+        ],
+        "Strategic Leadership ⚖️": [
+            {"title": "Engineering Management", "skills": ["Squad Leadership (10+)", "Hiring & Mentoring", "Performance Reviews", "DataOps Culture"]},
+            {"title": "Strategy & Governance", "skills": ["Platform Migration", "SFI Compliance", "Zero Trust Security", "Capacity Planning"]},
+            {"title": "FinOps & Efficiency", "skills": ["Cloud Cost Optimization", "Budget Forecasting", "Spot Instance Strategy", "$390k/yr Savings"]},
+            {"title": "Operational Excellence", "skills": ["SLA/SLO Definition", "Incident Response", "Root Cause Analysis", "Golden Path Standards"]},
+        ]
     }
 
-    leadership_skills = {
-        "06": ("Engineering Leadership", "Managing 10-12 Engineers, Hiring, Performance Mgmt, DataOps Culture"),
-        "07": ("Strategy &amp; Roadmap", "Platform Modernization (Fabric Migration), Capacity Planning, OKR Alignment"),
-        "08": ("Governance &amp; Security", "Microsoft Purview, Unity Catalog, SFI Compliance, PII Protection, Zero Trust"),
-        "09": ("FinOps &amp; Efficiency", "Cloud Cost Optimization ($390k savings), Compute/Storage Lifecycle Mgmt"),
-        "10": ("Operational Excellence", "Defining SLAs/SLOs, Data Quality Frameworks, Incident Response standards")
-    }
+    # 2. CSS FOR SKILL CARDS
+    st.markdown("""
+    <style>
+        .skill-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        .skill-column {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .skill-card {
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+        .skill-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 4px 4px 10px rgba(0,0,0,0.1);
+        }
+        .card-header {
+            font-weight: 700;
+            color: #2c3e50;
+            font-size: 16px;
+            margin-bottom: 12px;
+            border-bottom: 2px solid #f0f2f6;
+            padding-bottom: 8px;
+        }
+        .badge-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .skill-badge {
+            background-color: #f0f2f6;
+            color: #2c3e50;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 13px;
+            font-weight: 500;
+            border: 1px solid #d1d5db;
+        }
+        /* Color themes for columns */
+        .tech-header { color: #0078D4; border-bottom-color: #0078D4; }
+        .lead-header { color: #D83B01; border-bottom-color: #D83B01; }
+        
+        /* Dark Mode Adjustments */
+        @media (prefers-color-scheme: dark) {
+            .skill-card { background-color: #1e1e1e; border-color: #333; }
+            .card-header { color: #ffffff; }
+            .skill-badge { background-color: #2d2d2d; color: #e0e0e0; border-color: #444; }
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .skill-container { grid-template-columns: 1fr; }
+        }
+    </style>
+    """, unsafe_allow_html=True)
 
-    graph = graphviz.Digraph(engine='dot')
-    graph.attr(rankdir='LR', splines='polyline', nodesep='0.4', ranksep='2.0', bgcolor='#FFFFFF')
-    graph.attr('node', shape='box', style='filled, rounded', fontname='Helvetica', penwidth='2', margin='0.2')
-    graph.attr('edge', fontname='Helvetica', penwidth='1.5', color='#555555', arrowhead='none')
+    # 3. GENERATE HTML DYNAMICALLY
+    tech_html = ""
+    for group in skill_data["Technical Architecture 🛠️"]:
+        badges = "".join([f'<span class="skill-badge">{s}</span>' for s in group["skills"]])
+        tech_html += f"""
+        <div class="skill-card">
+            <div class="card-header tech-header">{group['title']}</div>
+            <div class="badge-container">{badges}</div>
+        </div>
+        """
 
-    center_label = """<<TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0"><TR><TD><FONT POINT-SIZE="16"><B>NARENDRAKUMAR</B></FONT></TD></TR><TR><TD>Data Eng Manager &amp; Architect</TD></TR><TR><TD><I>Core Competencies Hub</I></TD></TR></TABLE>>"""
-    graph.node('CENTER', label=center_label, shape='circle', fillcolor='#2c3e50', fontcolor='white', width='2.5', height='2.5', fixedsize='true')
+    lead_html = ""
+    for group in skill_data["Strategic Leadership ⚖️"]:
+        badges = "".join([f'<span class="skill-badge">{s}</span>' for s in group["skills"]])
+        lead_html += f"""
+        <div class="skill-card">
+            <div class="card-header lead-header">{group['title']}</div>
+            <div class="badge-container">{badges}</div>
+        </div>
+        """
 
-    for key, (title, details) in technical_skills.items():
-        node_id = f"L_{key}"
-        label = f"""<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#0078D4"><TR><TD WIDTH="30" BGCOLOR="#005a9e"><FONT COLOR="white"><B>{key}</B></FONT></TD><TD ALIGN="LEFT" BGCOLOR="#E6F2FF"><FONT POINT-SIZE="12"><B>{title}</B></FONT><BR/><FONT POINT-SIZE="10">{details}</FONT></TD></TR></TABLE>>"""
-        graph.node(node_id, label=label, color='#0078D4', fillcolor='white')
-        graph.edge(node_id, 'CENTER', color='#0078D4')
-
-    for key, (title, details) in leadership_skills.items():
-        node_id = f"R_{key}"
-        label = f"""<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#D83B01"><TR><TD ALIGN="RIGHT" BGCOLOR="#FDF3F0"><FONT POINT-SIZE="12"><B>{title}</B></FONT><BR/><FONT POINT-SIZE="10">{details}</FONT></TD><TD WIDTH="30" BGCOLOR="#A42E01"><FONT COLOR="white"><B>{key}</B></FONT></TD></TR></TABLE>>"""
-        graph.node(node_id, label=label, color='#D83B01', fillcolor='white')
-        graph.edge('CENTER', node_id, color='#D83B01')
-
-    st.graphviz_chart(graph, use_container_width=True)
+    # 4. RENDER THE GRID
+    st.markdown(f"""
+    <div class="skill-container">
+        <div class="skill-column">
+            <h3 style="text-align:center; color:#0078D4;">Technical Architecture</h3>
+            {tech_html}
+        </div>
+        <div class="skill-column">
+            <h3 style="text-align:center; color:#D83B01;">Strategic Leadership</h3>
+            {lead_html}
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
 # --- TAB 3: RADAR ---
 with tabs[2]:
@@ -340,4 +421,5 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
 
