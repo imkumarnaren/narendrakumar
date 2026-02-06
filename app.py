@@ -72,8 +72,15 @@ with st.sidebar:
     st.markdown("---")
     st.markdown("### 📥 Actions")
     # Placeholder for PDF download
-    with open(__file__, "rb") as file:
-        st.download_button("📄 Download Resume PDF", data=file, file_name="Narendrakumar_Resume.pdf")
+    # Inside Sidebar
+    with open("Narendrakumar_Resume.pdf", "rb") as pdf_file:
+        st.download_button(
+            label="📄 Download Official Resume",
+            data=pdf_file,
+            file_name="Narendrakumar_Nagarajan_Resume.pdf",
+            mime="application/pdf"
+        )
+        
  # INTERACTIVE AI SIMULATION
     # --- SMARTER SEARCH LOGIC ---
     st.markdown("---")
@@ -344,6 +351,7 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
 
 
 
