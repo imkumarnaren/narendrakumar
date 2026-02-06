@@ -15,9 +15,11 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# --- 1. GLOBAL VARIABLES (FLUSH LEFT TO PREVENT HTML ERRORS) ---
+# ==========================================
+# 1. GLOBAL HTML/CSS VARIABLES (FLUSH LEFT)
+# ==========================================
 
-# TIMELINE HTML
+# --- TIMELINE HTML ---
 TIMELINE_HTML = """
 <style>
 .timeline-container { border-left: 4px solid #e0e0e0; margin-left: 20px; padding-left: 30px; position: relative; }
@@ -86,7 +88,7 @@ Built the rigorous backend engineering foundation in <b>C#, .NET, and SQL Server
 </div>
 """
 
-# SKILLS CSS (FLUSH LEFT)
+# --- SKILLS CSS ---
 SKILLS_CSS = """
 <style>
 .skill-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 10px; }
@@ -106,6 +108,65 @@ SKILLS_CSS = """
 @media (max-width: 768px) { .skill-container { grid-template-columns: 1fr; } }
 </style>
 """
+
+# --- LEADERSHIP INSIGHTS HTML (NEW) ---
+LEADERSHIP_HTML = """
+<style>
+.insight-card {
+    background-color: #1e2126;
+    border-left: 4px solid #0078D4;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+.insight-title {
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+.insight-text {
+    color: #c0c0c0;
+    font-size: 14px;
+}
+.score-badge {
+    float: right;
+    background-color: #0078D4;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 12px;
+}
+</style>
+
+<div class="insight-card">
+    <span class="score-badge">5/5</span>
+    <div class="insight-title">Strategy & Governance</div>
+    <div class="insight-text">
+        Defining the "Golden Path" for 50B+ events. Leading SFI compliance across the entire data estate.
+    </div>
+</div>
+
+<div class="insight-card" style="border-left-color: #2ecc71;">
+    <span class="score-badge" style="background-color: #2ecc71;">5/5</span>
+    <div class="insight-title">FinOps Mastery</div>
+    <div class="insight-text">
+        Deep expertise in unit economics. Saved $390k/yr by optimizing cluster policies and storage lifecycles.
+    </div>
+</div>
+
+<div class="insight-card" style="border-left-color: #8B5CF6;">
+    <span class="score-badge" style="background-color: #8B5CF6;">4/5</span>
+    <div class="insight-title">Hands-on Coding</div>
+    <div class="insight-text">
+        I still merge PRs. I focus on high-leverage architectural code (Terraform modules, Base Classes) rather than daily tickets.
+    </div>
+</div>
+"""
+
+# ==========================================
+# 2. APP LOGIC
+# ==========================================
 
 # --- HELPER FUNCTIONS ---
 @st.cache_data
@@ -209,14 +270,13 @@ else:
 st.divider()
 
 # --- TABS ---
-tabs = st.tabs(["💼 Experience", "🛠️ Skills", "🤖 AI & Leadership", "🎓 Education"])
+tabs = st.tabs(["💼 Experience", "🛠️ Skills", "⚖️ Leadership", "🎓 Education"])
 
 # --- TAB 1: EXPERIENCE ---
 with tabs[0]:
     st.subheader("🛤️ Professional Journey")
     st.markdown(TIMELINE_HTML, unsafe_allow_html=True)
     
-    # NEW SIGNATURE PROJECTS SECTION
     st.markdown("### 🔥 Signature Project Case Studies")
     st.caption("A technical deep-dive into my three most impactful architectural challenges.")
 
@@ -259,11 +319,9 @@ with tabs[0]:
         * **Culture:** Instilled a "Cost-Aware Engineering" mindset across the squad.
         """)
 
-# --- TAB 2: SKILLS (FIXED HTML RENDERING) ---
+# --- TAB 2: SKILLS ---
 with tabs[1]:
     st.subheader("🚀 Technical & Leadership Ecosystem")
-    
-    # Apply CSS
     st.markdown(SKILLS_CSS, unsafe_allow_html=True)
     
     skill_data = {
@@ -281,11 +339,9 @@ with tabs[1]:
         ]
     }
 
-    # GENERATE HTML DYNAMICALLY WITH FLUSH LEFT STRINGS
     tech_html = ""
     for group in skill_data["Technical Architecture 🛠️"]:
         badges = "".join([f'<span class="skill-badge">{s}</span>' for s in group["skills"]])
-        # IMPORTANT: NO INDENTATION INSIDE F-STRING
         tech_html += f"""<div class="skill-card">
 <div class="card-header tech-header">{group['title']}</div>
 <div class="badge-container">{badges}</div>
@@ -294,13 +350,11 @@ with tabs[1]:
     lead_html = ""
     for group in skill_data["Strategic Leadership ⚖️"]:
         badges = "".join([f'<span class="skill-badge">{s}</span>' for s in group["skills"]])
-        # IMPORTANT: NO INDENTATION INSIDE F-STRING
         lead_html += f"""<div class="skill-card">
 <div class="card-header lead-header">{group['title']}</div>
 <div class="badge-container">{badges}</div>
 </div>"""
 
-    # RENDER GRID
     st.markdown(f"""
 <div class="skill-container">
 <div class="skill-column">
@@ -314,27 +368,39 @@ with tabs[1]:
 </div>
 """, unsafe_allow_html=True)
 
-# --- TAB 3: RADAR ---
+# --- TAB 3: LEADERSHIP DASHBOARD (FIXED) ---
 with tabs[2]:
-    st.subheader("⚖️ Leadership & Technical Balance")
-    categories = ['Strategic Vision', 'People Management', 'Cloud Architecture', 'Coding/Hands-on', 'FinOps/Cost Optimization', 'Governance/SFI']
-    values = [5, 5, 5, 4, 5, 5]
-
-    df_radar = pd.DataFrame(dict(r=values, theta=categories))
-    fig_radar = px.line_polar(df_radar, r='r', theta='theta', line_close=True, title="Competency Radar (Scale 1-5)")
-    fig_radar.update_traces(fill='toself', line_color='#0078D4')
-    fig_radar.update_layout(polar=dict(radialaxis=dict(visible=True, range=[0, 5])), showlegend=False, height=400)
+    st.subheader("⚖️ Executive Competency Radar")
     
-    col_radar1, col_radar2 = st.columns([1, 1])
+    col_radar1, col_radar2 = st.columns([3, 2])
+    
     with col_radar1:
+        # PLOTLY CHART
+        categories = ['Strategic Vision', 'People Management', 'Cloud Architecture', 
+                      'Coding/Hands-on', 'FinOps/Cost Optimization', 'Governance/SFI']
+        values = [5, 5, 5, 4, 5, 5]
+        
+        df_radar = pd.DataFrame(dict(r=values, theta=categories))
+        
+        fig_radar = px.line_polar(df_radar, r='r', theta='theta', line_close=True)
+        fig_radar.update_traces(fill='toself', line_color='#0078D4', fill_color='rgba(0, 120, 212, 0.3)')
+        fig_radar.update_layout(
+            polar=dict(
+                radialaxis=dict(visible=True, range=[0, 5], gridcolor='#333', tickfont=dict(color='gray')),
+                angularaxis=dict(tickfont=dict(size=14, color='white', weight='bold')),
+                bgcolor='rgba(0,0,0,0)'
+            ),
+            paper_bgcolor='rgba(0,0,0,0)',
+            showlegend=False,
+            height=500,
+            margin=dict(l=40, r=40, t=20, b=20)
+        )
         st.plotly_chart(fig_radar, use_container_width=True)
+
     with col_radar2:
-        st.info("""
-        **Interpretation:**
-        * **5/5 Strategy & Governance:** Ready to lead SFI compliance and roadmap planning.
-        * **4/5 Coding:** I still merge PRs and review architectural code (Python/Terraform).
-        * **5/5 FinOps:** Deep expertise in saving money ($390k/yr) via optimizations.
-        """)
+        st.markdown("### 🔍 Leadership DNA")
+        # USE THE GLOBAL HTML VARIABLE TO PREVENT INDENTATION ERRORS
+        st.markdown(LEADERSHIP_HTML, unsafe_allow_html=True)
 
 # --- TAB 4: EDUCATION ---
 with tabs[3]:
