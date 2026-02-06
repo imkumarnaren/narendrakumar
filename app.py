@@ -179,113 +179,123 @@ tabs = st.tabs(["💼 Professional Experience", "🛠️ Technical Skills", "�
 with tabs[0]:
 
     st.subheader("🛤️ Professional Journey")
-
-# 1. Define the CSS (Styles)
-st.markdown("""
-<style>
-    .timeline-container {
-        border-left: 4px solid #e0e0e0;
-        margin-left: 20px;
-        padding-left: 30px;
-        position: relative;
-    }
-    .timeline-item {
-        margin-bottom: 40px;
-        position: relative;
-    }
-    .timeline-dot {
-        width: 20px;
-        height: 20px;
-        background-color: #0078D4; /* Microsoft Blue */
-        border-radius: 50%;
-        position: absolute;
-        left: -42px;
-        top: 5px;
-        border: 4px solid white;
-        box-shadow: 0 0 0 1px #e0e0e0;
-    }
-    .timeline-date {
-        font-weight: bold;
-        color: #0078D4;
-        font-size: 14px;
-        margin-bottom: 5px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-    .timeline-title {
-        font-size: 18px;
-        font-weight: 700;
-        color: #2c3e50;
-        margin-bottom: 8px;
-    }
-    .timeline-desc {
-        color: #555;
-        font-size: 15px;
-        line-height: 1.6;
-    }
-    .highlight {
-        background-color: #f0f2f6;
-        padding: 2px 6px;
-        border-radius: 4px;
-        font-weight: 600;
-        font-size: 0.9em;
-    }
-</style>
-""", unsafe_allow_html=True)
-
-# 2. Define the HTML Content
-timeline_html = """
-<div class="timeline-container">
     
-    <div class="timeline-item">
-        <div class="timeline-dot" style="background-color: #8B5CF6;"></div>
-        <div class="timeline-date">Sep 2024 – Present</div>
-        <div class="timeline-title">Principal Data Engineer & Squad Lead (Cyber Defense)</div>
-        <div class="timeline-desc">
-            Leading the integration of <b>Generative AI</b> into Security Operations at Microsoft.
-            <ul>
-                <li>Architected the <span class="highlight">TICK Agent</span> using Azure AI Foundry & Semantic Kernel to automate threat hunting.</li>
-                <li>Led the <b>Secure Future Initiative (SFI)</b> achieving 100% compliance across the Data Estate.</li>
-                <li>Standardized "Golden Path" CI/CD templates for a squad of 10+ engineers.</li>
-            </ul>
+    # 1. Define the CSS (Styles)
+    st.markdown("""
+    <style>
+        .timeline-container {
+            border-left: 4px solid #e0e0e0;
+            margin-left: 20px;
+            padding-left: 30px;
+            position: relative;
+        }
+        .timeline-item {
+            margin-bottom: 40px;
+            position: relative;
+        }
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            background-color: #0078D4; /* Microsoft Blue */
+            border-radius: 50%;
+            position: absolute;
+            left: -42px;
+            top: 5px;
+            border: 4px solid white;
+            box-shadow: 0 0 0 1px #e0e0e0;
+        }
+        .timeline-date {
+            font-weight: bold;
+            color: #0078D4;
+            font-size: 14px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .timeline-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        .timeline-desc {
+            color: #555;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        .highlight {
+            background-color: #f0f2f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+    </style>
+    """, unsafe_allow_html=True)
+    
+    # 2. Define the HTML Content
+    timeline_html = """
+    <div class="timeline-container">
+        
+        <div class="timeline-item">
+            <div class="timeline-dot" style="background-color: #8B5CF6;"></div>
+            <div class="timeline-date">Sep 2024 – Present</div>
+            <div class="timeline-title">Principal Data Engineer & Squad Lead (Cyber Defense)</div>
+            <div class="timeline-desc">
+                Leading the integration of <b>Generative AI</b> into Security Operations at Microsoft.
+                <ul>
+                    <li>Architected the <span class="highlight">TICK Agent</span> using Azure AI Foundry & Semantic Kernel to automate threat hunting.</li>
+                    <li>Led the <b>Secure Future Initiative (SFI)</b> achieving 100% compliance across the Data Estate.</li>
+                    <li>Standardized "Golden Path" CI/CD templates for a squad of 10+ engineers.</li>
+                </ul>
+            </div>
         </div>
-    </div>
-
-    <div class="timeline-item">
-        <div class="timeline-dot" style="background-color: #0078D4;"></div>
-        <div class="timeline-date">May 2019 – Aug 2024</div>
-        <div class="timeline-title">Staff Data Engineer & Platform Manager (CX Platform)</div>
-        <div class="timeline-desc">
-            Managed a hyper-scale telemetry platform processing <span class="highlight">50 Billion+ events/month</span>.
-            <ul>
-                <li>Orchestrated the migration of <b>100+ pipelines</b> to Microsoft Fabric & OneLake.</li>
-                <li>Optimized Databricks clusters to save <b>$390k/year</b> (FinOps).</li>
-                <li>Built and mentored a high-performing team of <b>12 engineers</b>.</li>
-            </ul>
+    
+        <div class="timeline-item">
+            <div class="timeline-dot" style="background-color: #0078D4;"></div>
+            <div class="timeline-date">May 2019 – Aug 2024</div>
+            <div class="timeline-title">Staff Data Engineer & Platform Manager (CX Platform)</div>
+            <div class="timeline-desc">
+                Managed a hyper-scale telemetry platform processing <span class="highlight">50 Billion+ events/month</span>.
+                <ul>
+                    <li>Orchestrated the migration of <b>100+ pipelines</b> to Microsoft Fabric & OneLake.</li>
+                    <li>Optimized Databricks clusters to save <b>$390k/year</b> (FinOps).</li>
+                    <li>Built and mentored a high-performing team of <b>12 engineers</b>.</li>
+                </ul>
+            </div>
         </div>
-    </div>
-
-    <div class="timeline-item">
-        <div class="timeline-dot" style="background-color: #2ecc71;"></div>
-        <div class="timeline-date">Aug 2016 – Apr 2019</div>
-        <div class="timeline-title">Tech Lead & Cloud Architect (Infosys)</div>
-        <div class="timeline-desc">
-            Led the strategic migration from on-premise Legacy stacks to <b>Azure Cloud</b>.
-            <ul>
-                <li>Architected the "R3" migration to Azure SQL & ADF, saving $150k annually.</li>
-                <li>Designed complex <b>Star Schema</b> models for Power BI used by 500+ daily users.</li>
-            </ul>
+    
+        <div class="timeline-item">
+            <div class="timeline-dot" style="background-color: #2ecc71;"></div>
+            <div class="timeline-date">Aug 2016 – Apr 2019</div>
+            <div class="timeline-title">Tech Lead & Cloud Architect (Infosys)</div>
+            <div class="timeline-desc">
+                Led the strategic migration from on-premise Legacy stacks to <b>Azure Cloud</b>.
+                <ul>
+                    <li>Architected the "R3" migration to Azure SQL & ADF, saving $150k annually.</li>
+                    <li>Designed complex <b>Star Schema</b> models for Power BI used by 500+ daily users.</li>
+                </ul>
+            </div>
         </div>
+    
+        <div class="timeline-item">
+            <div class="timeline-dot" style="background-color: #95a5a6;"></div>
+            <div class="timeline-date">2010 – 2016</div>
+            <div class="timeline-title">Senior Software Engineer (Accenture & Medall)</div>
+            <div class="timeline-desc">
+                Built the rigorous backend engineering foundation in <b>C#, .NET, and SQL Server</b>.
+                <ul>
+                    <li>Designed financial ETL systems for <b>Accenture</b> (Royalty Calculation).</li>
+                    <li>Developed HL7 healthcare parsers and high-throughput APIs for <b>Carevoyant</b>.</li>
+                </ul>
+            </div>
+        </div>
+    
     </div>
-
-    <div class="timeline-item">
-        <div class="timeline-dot" style="background-color: #95a5a6;"></div>
-        <div class="timeline-date">2010 – 2016</div>
-        <div class="timeline-title">Senior Software Engineer (Accenture & Medall)</div>
-        <div class="timeline-desc">
-            Built the rigorous backend engineering foundation in <b>C#, .NET, and SQL Server</b>.
-            <ul>
-                <li>Designed financial ETL systems for <b>Accenture</b> (Royalty Calculation).</li>
+    """
+    
+    # 3. RENDER THE HTML (Crucial Step)
+    st.markdown(timeline_html, unsafe_allow_html=True)
     st.subheader("Career Timeline")
     # Timeline Data
     timeline_data = [
@@ -462,6 +472,7 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
 
 
 
