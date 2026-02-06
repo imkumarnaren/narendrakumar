@@ -35,7 +35,7 @@ TIMELINE_HTML = """
 <div class="timeline-item">
 <div class="timeline-dot" style="background-color: #8B5CF6;"></div>
 <div class="timeline-date">Sep 2024 – Present</div>
-<div class="timeline-title">Principal Data Engineer & Squad Lead (Cyber Defense)</div>
+<div class="timeline-title">Technology Lead / Principal Data Engineer & Squad Lead (Cyber Defense)</div>
 <div class="timeline-desc">
 Leading the integration of <b>Generative AI</b> into Security Operations at Microsoft.
 <ul>
@@ -75,7 +75,21 @@ Led the strategic migration from on-premise Legacy stacks to <b>Azure Cloud</b>.
 
 <div class="timeline-item">
 <div class="timeline-dot" style="background-color: #95a5a6;"></div>
-<div class="timeline-date">2010 – 2016</div>
+<div class="timeline-date">Accenture 2014 – 2016</div>
+<div class="timeline-title">Senior Software Engineer</div>
+<div class="timeline-desc">
+Built the rigorous backend engineering foundation in <b>C#, .NET, and SQL Server</b>.
+<ul>
+<li>Designed financial ETL systems for <b>Accenture</b>.</li>
+<li>Developed HL7 healthcare parsers for <b>Carevoyant</b>.</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="timeline-item">
+<div class="timeline-dot" style="background-color: #95a5a6;"></div>
+<div class="timeline-date">Medall 2010 – 2011</div>
 <div class="timeline-title">Senior Software Engineer (Accenture & Medall)</div>
 <div class="timeline-desc">
 Built the rigorous backend engineering foundation in <b>C#, .NET, and SQL Server</b>.
@@ -419,3 +433,4 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
