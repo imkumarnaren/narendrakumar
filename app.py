@@ -109,7 +109,7 @@ SKILLS_CSS = """
 </style>
 """
 
-# --- LEADERSHIP INSIGHTS HTML (NEW) ---
+# --- LEADERSHIP INSIGHTS HTML ---
 LEADERSHIP_HTML = """
 <style>
 .insight-card {
@@ -383,7 +383,8 @@ with tabs[2]:
         df_radar = pd.DataFrame(dict(r=values, theta=categories))
         
         fig_radar = px.line_polar(df_radar, r='r', theta='theta', line_close=True)
-        fig_radar.update_traces(fill='toself', line_color='#0078D4', fill_color='rgba(0, 120, 212, 0.3)')
+        # BUG FIX: changed fill_color to fillcolor
+        fig_radar.update_traces(fill='toself', line_color='#0078D4', fillcolor='rgba(0, 120, 212, 0.3)')
         fig_radar.update_layout(
             polar=dict(
                 radialaxis=dict(visible=True, range=[0, 5], gridcolor='#333', tickfont=dict(color='gray')),
