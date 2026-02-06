@@ -185,7 +185,7 @@ with tabs[0]:
         dict(Role="Technology Lead", Company="Infosys", Start='2016-08-01', End='2019-05-01', Category="Tech Lead"),
         dict(Role="Senior Software Engineer", Company="Accenture", Start='2014-02-14', End='2016-07-26', Category="Engineering"),
         dict(Role="Software Engineer Grade-3", Company="Carevoyant", Start='2011-12-05', End='2014-01-31', Category="Engineering"),
-        dict(Role="Software Engineer", Company="Carevoyant", Start='2011-12-05', End='2014-01-31', Category="Engineering"),
+        dict(Role="Software Engineer", Company="Medall Healthcare", Start='2010-09-13', End='2011-11-30', Category="Engineering"),
     ]
     df_timeline = pd.DataFrame(timeline_data)
     
@@ -354,6 +354,7 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
 
 
 
