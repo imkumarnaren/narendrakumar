@@ -178,9 +178,10 @@ tabs = st.tabs(["💼 Professional Experience", "🛠️ Technical Skills", "�
 # --- TAB 1: EXPERIENCE (TIMELINE & DETAILS) ---
 with tabs[0]:
 
+    # --- Professional Journey Section ---
     st.subheader("🛤️ Professional Journey")
     
-    # 1. Define the CSS (Styles)
+    # 1. Define the CSS (Styles) - This hides the raw HTML and makes it look pretty
     st.markdown("""
     <style>
         .timeline-container {
@@ -196,7 +197,7 @@ with tabs[0]:
         .timeline-dot {
             width: 20px;
             height: 20px;
-            background-color: #0078D4; /* Microsoft Blue */
+            background-color: #0078D4;
             border-radius: 50%;
             position: absolute;
             left: -42px;
@@ -233,7 +234,7 @@ with tabs[0]:
     </style>
     """, unsafe_allow_html=True)
     
-    # 2. Define the HTML Content
+    # 2. Define the HTML Content (ensure NO backticks ``` are in this string)
     timeline_html = """
     <div class="timeline-container">
         
@@ -294,7 +295,7 @@ with tabs[0]:
     </div>
     """
     
-    # 3. RENDER THE HTML (Crucial Step)
+    # 3. RENDER THE HTML (This is the most important line)
     st.markdown(timeline_html, unsafe_allow_html=True)
     st.subheader("Career Timeline")
     # Timeline Data
@@ -472,6 +473,7 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption("© 2026 Narendrakumar Nagarajan | Built with Python & Streamlit")
+
 
 
 
