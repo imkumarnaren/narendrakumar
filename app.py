@@ -362,7 +362,7 @@ with tabs[0]:
 **Context:** Enterprise telemetry platform processing **50B+ events/month** for global support channels.
 
 **What I led:**
-- Execution leadership for **100+ pipeline migration** to **Microsoft Fabric**
+- Execution leadership for **100+ pipeline migration** to **Microsoft Fabric/Databricks**
 - Release readiness + phased rollout to maintain **zero downtime**
 - Performance + reliability improvements across ingestion and analytics
 
@@ -535,5 +535,6 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption(f"© {datetime.now().year} Narendrakumar Nagarajan | Built with Streamlit")
+
 
 
