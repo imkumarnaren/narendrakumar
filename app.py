@@ -305,7 +305,7 @@ with col2:
 st.divider()
 
 # --- CHAT AGENT ---
-st.subheader("Narendra Resume AI Agent")
+st.subheader("Narendra's Resume AI Agent")
 st.caption("Answers strictly from my resume PDF using RAG-style grounding.")
 
 if os.path.exists("Narendrakumar_Resume.pdf"):
@@ -535,6 +535,7 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption(f"© {datetime.now().year} Narendrakumar Nagarajan | Built with Streamlit")
+
 
 
 
