@@ -69,7 +69,7 @@ TIMELINE_HTML = """
     <div class="timeline-desc">
       Built and scaled an enterprise telemetry lakehouse processing <span class="highlight">50B+ events/month</span>.
       <ul>
-        <li>Led <span class="highlight">Microsoft Fabric migration</span> of <b>100+ pipelines</b> with <b>zero downtime</b> and <b>40% performance improvement</b>.</li>
+        <li>Led <span class="highlight">Microsoft Fabric/Databricks migration</span> of <b>100+ pipelines</b> with <b>zero downtime</b> and <b>40% performance improvement</b>.</li>
         <li>FinOps: delivered <span class="highlight">$240K/year</span> savings via Databricks optimization and reduced infra spend by <b>40%</b>.</li>
         <li>Managed and mentored <b>8 Infosys data engineers</b>; peak leadership <b>12</b> (direct + matrix).</li>
         <li>Implemented GDPR-aligned retention/privacy controls and automated reliability (80% less manual intervention).</li>
@@ -535,3 +535,4 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption(f"© {datetime.now().year} Narendrakumar Nagarajan | Built with Streamlit")
+
