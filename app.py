@@ -306,7 +306,7 @@ st.divider()
 
 # --- CHAT AGENT ---
 st.subheader("Resume Q&A Agent")
-st.caption("Answers strictly from your resume PDF using RAG-style grounding (resume text only).")
+st.caption("Answers strictly from my resume PDF using RAG-style grounding (resume text only).")
 
 if os.path.exists("Narendrakumar_Resume.pdf"):
     pdf_text = get_pdf_text("Narendrakumar_Resume.pdf")
