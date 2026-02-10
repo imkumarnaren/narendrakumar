@@ -65,7 +65,7 @@ TIMELINE_HTML = """
   <div class="timeline-item">
     <div class="timeline-dot" style="background-color: #2ecc71;"></div>
     <div class="timeline-date">May 2019 – Aug 2024</div>
-    <div class="timeline-title">Technology Lead (Infosys) — Data Platform Lead / Product Manager (Microsoft CX&S)</div>
+    <div class="timeline-title">Technology Lead (Infosys) — Data Platform Lead / Product Manager (Microsoft CE&SBI)</div>
     <div class="timeline-desc">
       Built and scaled an enterprise telemetry lakehouse processing <span class="highlight">50B+ events/month</span>.
       <ul>
@@ -535,6 +535,7 @@ with tabs[3]:
 
 st.markdown("---")
 st.caption(f"© {datetime.now().year} Narendrakumar Nagarajan | Built with Streamlit")
+
 
 
 
